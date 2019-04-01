@@ -6,28 +6,28 @@
 #include <QtMath>
 #include <random>
 #include <QRandomGenerator>
+#include <memory>
 
 class GeneratedShape : public QGraphicsItem {
 public:
     GeneratedShape();
-    GeneratedShape(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     void generate(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts);
-
+    ~GeneratedShape();
 private:
-    QPolygon* poly;
     QPolygon generatePolygon(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts);
     double clip(double number, double max, double min);
     double randomDouble(double a, double b);
-    std::default_random_engine generator;
+private:
+    QPolygon* poly;
     double radius;
     double wonkyness;
     double spikeyness;
     int xPos;
     int yPos;
     int numVerts;
-    bool canGenerate;
+    bool canGenerate = true;
 };
 
 #endif // GENERATEDSHAPE_H

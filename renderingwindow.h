@@ -20,14 +20,20 @@ public:
     explicit RenderingWindow(QWidget *parent = nullptr);
     ~RenderingWindow();
 private:
+    void generateShape(int size);
+private:
     Ui::RenderingWindow *ui;
     QGraphicsScene *scene;
-    QList<GeneratedShape*> shapes;
-    void generateShape(int size);
+    GeneratedShape *shapes;
+    const int amtOfShapes = 10;
     double spikeyness;
+    double wonkyness;
+    int complexity;
 private slots:
     void generateShapeButton();
-    void on_verticalSlider_valueChanged(int value);
+    void on_AggresivenessSlider_valueChanged(int value);
+    void on_ComplexitySlider_valueChanged(int value);
+    void on_IrregularitySlider_valueChanged(int value);
 };
 
 #endif // RENDERINGWINDOW_H

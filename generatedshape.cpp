@@ -1,25 +1,15 @@
 #include "generatedshape.h"
 #include <QDebug>
 
+static bool firstTime = false;
 
 GeneratedShape::GeneratedShape() {
     setFlag(ItemIsMovable);
-    canGenerate = true;
-}
-
-GeneratedShape::GeneratedShape(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts) {
-    setFlag(ItemIsMovable);
-    this->radius = radius;
-    this->wonkyness = wonkyness;
-    this->spikeyness = spikeyness;
-    this->numVerts = numVerts;
-    this->xPos = xPos;
-    this->yPos = yPos;
-    canGenerate = true;
+    canGenerate = false;
 }
 
 QRectF GeneratedShape::boundingRect() const {
-    return QRectF(-250, -250, 500, 500);
+    return QRectF(-125, -125, 250, 250);
 }
 
 void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -27,16 +17,20 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     Q_UNUSED(widget);
     QBrush brush(Qt::black);
     QPen pen(Qt::black);
-    //pen.setJoinStyle(Qt::RoundJoin);
+    pen.setWidth(4);
+    pen.setJoinStyle(Qt::RoundJoin);
     QPainterPath path;
     if(canGenerate) {
         poly = new QPolygon(generatePolygon(xPos, yPos, radius, wonkyness, spikeyness, numVerts));
+        firstTime = true;
         canGenerate = false;
     }
-    path.addPolygon(*poly);
-    painter->setPen(pen);
-    painter->fillPath(path, brush);
-    painter->drawPolygon(*poly);
+    if(firstTime) {
+        path.addPolygon(*poly);
+        painter->setPen(pen);
+        painter->fillPath(path, brush);
+        painter->drawPolygon(*poly);
+    }
 }
 
 void GeneratedShape::generate(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts) {
@@ -71,7 +65,7 @@ QPolygon GeneratedShape::generatePolygon(int xPos, int yPos, double radius, doub
     std::normal_distribution<double> distribution(radius, spikeyness);
     QPolygon poly;
     for(int i = 0; i < numVerts; ++i) {
-        double random = clip(distribution(generator), 0, 2 * radius);
+        double random = clip(distribution(*QRandomGenerator::global()), 0, 2 * radius);
         poly << QPoint(xPos + qFloor(random * qCos(angle)), yPos + qFloor(random * qSin(angle)));
         angle += angleSteps[i];
     }
@@ -88,4 +82,8 @@ double GeneratedShape::clip(double number, double max, double min) {
 double GeneratedShape::randomDouble(double a, double b) {
     double random = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
     return a + (random * (b - a));
+}
+
+GeneratedShape::~GeneratedShape() {
+    delete poly;
 }
