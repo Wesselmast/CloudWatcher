@@ -4,21 +4,19 @@
 static bool firstTime = false;
 
 GeneratedShape::GeneratedShape() {
-    setFlag(ItemIsMovable);
     canGenerate = false;
+    pen = new QPen(Qt::black);
+    brush = new QBrush(Qt::black);
 }
 
 QRectF GeneratedShape::boundingRect() const {
-    return QRectF(-125, -125, 250, 250);
+    return QRectF(-150, -150, 300, 300);
 }
 
 void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    QBrush brush(Qt::black);
-    QPen pen(Qt::black);
-    pen.setWidth(4);
-    pen.setJoinStyle(Qt::RoundJoin);
+    pen->setJoinStyle(Qt::RoundJoin);
     QPainterPath path;
     if(canGenerate) {
         poly = new QPolygon(generatePolygon(xPos, yPos, radius, wonkyness, spikeyness, numVerts));
@@ -27,8 +25,8 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     }
     if(firstTime) {
         path.addPolygon(*poly);
-        painter->setPen(pen);
-        painter->fillPath(path, brush);
+        painter->setPen(*pen);
+        painter->fillPath(path, *brush);
         painter->drawPolygon(*poly);
     }
 }
@@ -86,4 +84,6 @@ double GeneratedShape::randomDouble(double a, double b) {
 
 GeneratedShape::~GeneratedShape() {
     delete poly;
+    delete pen;
+    delete brush;
 }

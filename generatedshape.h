@@ -15,6 +15,9 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     void generate(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts);
     ~GeneratedShape();
+public:
+    QPen* pen;
+    QBrush* brush;
 private:
     QPolygon generatePolygon(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts);
     double clip(double number, double max, double min);
