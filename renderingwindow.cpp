@@ -43,7 +43,7 @@ void RenderingWindow::exportShapeButton() {
     shape->paint(&painter, &opt);
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                 QDir::currentPath(),
-                                tr("All File (*.*) ;; CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
+                                tr("CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
     image.save(fileName);
 }
 
