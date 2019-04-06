@@ -451,6 +451,20 @@ release/moc_renderingwindow.cpp: renderingwindow.h \
 		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QGraphicsItem \
 		C:/Qt/5.12.1/mingw73_64/include/QtCore/QtMath \
 		C:/Qt/5.12.1/mingw73_64/include/QtCore/QRandomGenerator \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QSlider \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qslider.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtGui/QList \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QStyleOptionGraphicsItem \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qstyle.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qframe.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QFileDialog \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qdialog.h \
 		release/moc_predefs.h \
 		C:/Qt/5.12.1/mingw73_64/bin/moc.exe
 	C:\Qt\5.12.1\mingw73_64\bin\moc.exe $(DEFINES) --include "C:/Users/Wessel/Desktop/Github School/CloudWatching/release/moc_predefs.h" -IC:/Qt/5.12.1/mingw73_64/mkspecs/win32-g++ -I"C:/Users/Wessel/Desktop/Github School/CloudWatching" -IC:/Qt/5.12.1/mingw73_64/include -IC:/Qt/5.12.1/mingw73_64/include/QtWidgets -IC:/Qt/5.12.1/mingw73_64/include/QtGui -IC:/Qt/5.12.1/mingw73_64/include/QtANGLE -IC:/Qt/5.12.1/mingw73_64/include/QtCore -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include renderingwindow.h -o release\moc_renderingwindow.cpp
@@ -820,6 +834,20 @@ release/main.o: main.cpp renderingwindow.h \
 		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QGraphicsItem \
 		C:/Qt/5.12.1/mingw73_64/include/QtCore/QtMath \
 		C:/Qt/5.12.1/mingw73_64/include/QtCore/QRandomGenerator \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QSlider \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qslider.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtGui/QList \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QStyleOptionGraphicsItem \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qstyle.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qframe.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QFileDialog \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qdialog.h \
 		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qapplication.h \
 		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qdesktopwidget.h
@@ -1167,7 +1195,44 @@ release/renderingwindow.o: renderingwindow.cpp renderingwindow.h \
 		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QGraphicsItem \
 		C:/Qt/5.12.1/mingw73_64/include/QtCore/QtMath \
 		C:/Qt/5.12.1/mingw73_64/include/QtCore/QRandomGenerator \
-		ui_renderingwindow.h
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QSlider \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qslider.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtGui/QList \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QStyleOptionGraphicsItem \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qstyle.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qframe.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QFileDialog \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qdialog.h \
+		ui_renderingwindow.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtCore/QVariant \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QApplication \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qapplication.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QGridLayout \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qgridlayout.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qlayout.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qboxlayout.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QGroupBox \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qgroupbox.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QHBoxLayout \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QLabel \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qlabel.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QPushButton \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QVBoxLayout \
+		C:/Qt/5.12.1/mingw73_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\renderingwindow.o renderingwindow.cpp
 
 release/generatedshape.o: generatedshape.cpp generatedshape.h \

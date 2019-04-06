@@ -4,27 +4,19 @@
 RenderingWindow::RenderingWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::RenderingWindow)
-{
+{    
     srand(time_t(NULL));
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
 
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
     sliders = RenderingWindow::findChildren<QSlider*>();
 
-    bigShapes = new GeneratedShape[amtOfBigShapes];
-    mediumShapes = new GeneratedShape[amtOfMediumShapes];
-    smallShapes = new GeneratedShape[amtOfSmallShapes];
-
-    for(int i = 0; i < amtOfBigShapes; ++i) {
-        scene->addItem(&bigShapes[i]);
-    }
-    for(int i = 0; i < amtOfMediumShapes; ++i) {
-        scene->addItem(&mediumShapes[i]);
-    }
-    for(int i = 0; i < amtOfSmallShapes; ++i) {
-        scene->addItem(&smallShapes[i]);
-    }
+    shape = new GeneratedShape();
+    scene->addItem(shape);
 
     connect(ui->generateButton, SIGNAL(released()), this, SLOT(generateShapeButton()));
     connect(ui->exportButton, SIGNAL(released()), this, SLOT(exportShapeButton()));
@@ -38,34 +30,26 @@ void RenderingWindow::randomizeShapeButton() {
 }
 
 void RenderingWindow::generateShapeButton() {
-    generateShape(bigShapes, 70, amtOfBigShapes, wonkynessBig, spikeynessBig, complexityBig);
-    generateShape(mediumShapes, 40, amtOfMediumShapes, wonkynessMedium, spikeynessMedium, complexityMedium);
-    generateShape(smallShapes, 15, amtOfSmallShapes, wonkynessSmall, spikeynessSmall, complexitySmall);
-}
-
-void RenderingWindow::generateShape(GeneratedShape *shapeCollection, int size, int amtOfShapes, double wonkyness, double spikeyness, int complexity) {
-    for(int i = 0; i < amtOfShapes; ++i) {
-        shapeCollection[i].generate((rand() % 150) - 75, (rand() % 200) - 100, size, wonkyness, spikeyness, complexity);
-        shapeCollection[i].setRotation(rand() % 360);
-    }
-}
-
-void RenderingWindow::lineThickness(GeneratedShape *shapeCollection, int value, int amtOfShapes) {
-    for(int i = 0; i < amtOfShapes; ++i) {
-        shapeCollection[i].pen->setWidth(value);
-        shapeCollection[i].update();
-    }
+    shape->generate(wonkynessSmall, spikeynessSmall, complexitySmall,
+                    wonkynessMedium, spikeynessMedium, complexityMedium,
+                    wonkynessBig, spikeynessBig, complexityBig);
 }
 
 void RenderingWindow::exportShapeButton() {
-    QPixmap pixmap = ui->graphicsView->grab();
-    pixmap.save("PixMap.png");
+    QImage image(shape->boundingRect().size().toSize(), QImage::Format_ARGB32);
+    image.fill(qRgba(255,255,255,0));
+    QPainter painter(&image);
+    QStyleOptionGraphicsItem opt;
+    shape->paint(&painter, &opt);
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                QDir::currentPath(),
+                                tr("All File (*.*) ;; CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
+    image.save(fileName);
 }
 
 void RenderingWindow::on_LineThickSlider_valueChanged(int value) {
-    lineThickness(bigShapes, value, amtOfBigShapes);
-    lineThickness(mediumShapes, value, amtOfMediumShapes);
-    lineThickness(smallShapes, value, amtOfSmallShapes);
+    shape->pen->setWidth(value);
+    shape->update();
 }
 
 void RenderingWindow::on_AggresivenessSmallSlider_valueChanged(int value) {
@@ -106,8 +90,5 @@ void RenderingWindow::on_IrregularityBigSlider_valueChanged(int value) {
 
 RenderingWindow::~RenderingWindow() {
     delete ui;
-    delete scene;
-    delete bigShapes;
-    delete mediumShapes;
-    delete smallShapes;
+    delete shape;
 }

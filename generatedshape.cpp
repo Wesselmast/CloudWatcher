@@ -1,44 +1,90 @@
 #include "generatedshape.h"
 #include <QDebug>
 
-static bool firstTime = false;
+static bool firstTime = true;
 
 GeneratedShape::GeneratedShape() {
-    canGenerate = false;
+    setFlag(ItemIsMovable);
     pen = new QPen(Qt::black);
     brush = new QBrush(Qt::black);
+    smallPolygons = new QPolygon[amtOfSmallPolygons];
+    mediumPolygons = new QPolygon[amtOfMediumPolygons];
+    bigPolygons = new QPolygon[amtOfBigPolygons];
+    canGenerate = false;
 }
 
 QRectF GeneratedShape::boundingRect() const {
-    return QRectF(-150, -150, 300, 300);
+    return QRectF(0, 0, 512, 512);
 }
 
 void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
     pen->setJoinStyle(Qt::RoundJoin);
-    QPainterPath path;
+
     if(canGenerate) {
-        poly = new QPolygon(generatePolygon(xPos, yPos, radius, wonkyness, spikeyness, numVerts));
-        firstTime = true;
+        // MAKE THIS VARIABLE!
+        int leniency = 80;
+
+        int maxX = qFloor((boundingRect().width() / 2) + leniency);
+        int minX = qFloor((boundingRect().width() / 2) - leniency);
+        int maxY = qFloor((boundingRect().height() / 2) + leniency);
+        int minY = qFloor((boundingRect().height() / 2) - leniency);
+
+        for (int i = 0; i < amtOfSmallPolygons; ++i) {
+            int xPos = rand() % (maxX-minX) + minX;
+            int yPos = rand() % (maxY-minY) + minY;
+            smallPolygons[i] = QPolygon(generatePolygon(xPos, yPos, 15, wonkynessSmall, spikeynessSmall, complexitySmall));
+        }
+        for (int i = 0; i < amtOfMediumPolygons; ++i) {
+            int xPos = rand() % (maxX-minX) + minX;
+            int yPos = rand() % (maxY-minY) + minY;
+            mediumPolygons[i] = QPolygon(generatePolygon(xPos, yPos, 35, wonkynessMedium, spikeynessMedium, complexityMedium));
+        }
+        for (int i = 0; i < amtOfBigPolygons; ++i) {
+            int xPos = rand() % (maxX-minX) + minX;
+            int yPos = rand() % (maxY-minY) + minY;
+            bigPolygons[i] = QPolygon(generatePolygon(xPos, yPos, 60, wonkynessBig, spikeynessBig, complexityBig));
+        }
+
+        firstTime = false;
         canGenerate = false;
     }
-    if(firstTime) {
-        path.addPolygon(*poly);
-        painter->setPen(*pen);
+    if(firstTime) return;
+    painter->setPen(*pen);
+    for (int i = 0; i < amtOfSmallPolygons; ++i) {
+        QPainterPath path;
+        path.addPolygon(smallPolygons[i]);
         painter->fillPath(path, *brush);
-        painter->drawPolygon(*poly);
+        painter->drawPolygon(smallPolygons[i]);
+    }
+    for (int i = 0; i < amtOfMediumPolygons; ++i) {
+        QPainterPath path;
+        path.addPolygon(mediumPolygons[i]);
+        painter->fillPath(path, *brush);
+        painter->drawPolygon(mediumPolygons[i]);
+    }
+    for (int i = 0; i < amtOfBigPolygons; ++i) {
+        QPainterPath path;
+        path.addPolygon(bigPolygons[i]);
+        painter->fillPath(path, *brush);
+        painter->drawPolygon(bigPolygons[i]);
     }
 }
 
-void GeneratedShape::generate(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts) {
+void GeneratedShape::generate(double wonkynessSmall, double spikeynessSmall, int complexitySmall,
+                              double wonkynessMedium, double spikeynessMedium, int complexityMedium,
+                              double wonkynessBig, double spikeynessBig, int complexityBig) {
     canGenerate = true;
-    this->radius = radius;
-    this->wonkyness = wonkyness;
-    this->spikeyness = spikeyness;
-    this->numVerts = numVerts;
-    this->xPos = xPos;
-    this->yPos = yPos;
+    this->wonkynessSmall = wonkynessSmall;
+    this->wonkynessMedium = wonkynessMedium;
+    this->wonkynessBig = wonkynessBig;
+    this->spikeynessSmall = spikeynessSmall;
+    this->spikeynessMedium = spikeynessMedium;
+    this->spikeynessBig = spikeynessBig;
+    this->complexitySmall = complexitySmall;
+    this->complexityMedium = complexityMedium;
+    this->complexityBig = complexityBig;
     update();
 }
 
@@ -83,7 +129,6 @@ double GeneratedShape::randomDouble(double a, double b) {
 }
 
 GeneratedShape::~GeneratedShape() {
-    delete poly;
     delete pen;
     delete brush;
 }

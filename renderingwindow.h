@@ -9,6 +9,8 @@
 #include "generatedshape.h"
 #include <QSlider>
 #include <QList>
+#include <QStyleOptionGraphicsItem>
+#include <QFileDialog>
 
 namespace Ui {
 class RenderingWindow;
@@ -27,13 +29,8 @@ private:
 private:
     Ui::RenderingWindow *ui;
     QGraphicsScene *scene;
-    GeneratedShape *bigShapes;
-    GeneratedShape *mediumShapes;
-    GeneratedShape *smallShapes;
+    GeneratedShape *shape;
     QList<QSlider*> sliders;
-    const int amtOfBigShapes = 3;
-    const int amtOfMediumShapes = 6;
-    const int amtOfSmallShapes = 10;
     double spikeynessSmall = 0;
     double wonkynessSmall = 0;
     int complexitySmall = 5;
