@@ -108,12 +108,47 @@ QPolygon GeneratedShape::generatePolygon(int xPos, int yPos, double radius, doub
     double angle = randomDouble(0, 2 * M_PI);
     std::normal_distribution<double> distribution(radius, spikeyness);
     QPolygon poly;
+    QList<QPoint> points;
     for(int i = 0; i < numVerts; ++i) {
         double random = clip(distribution(*QRandomGenerator::global()), 0, 2 * radius);
-        poly << QPoint(xPos + qFloor(random * qCos(angle)), yPos + qFloor(random * qSin(angle)));
+        points.push_back(QPoint(xPos + qFloor(random * qCos(angle)), yPos + qFloor(random * qSin(angle))));
         angle += angleSteps[i];
     }
+    QList<QPoint> splinedPoints = generateSplines(points, 100);
+    for(int i = 0; i < splinedPoints.length(); ++i) {
+        poly << splinedPoints[i];
+    }
     return poly;
+}
+
+QList<QPoint> GeneratedShape::generateSplines(QList<QPoint> points, int numSplines) {
+    QList<QPoint> splinePoints;
+    for (int i = 0; i < points.size() - 3; i++) {
+        for (int j = 0; j < numSplines; j++) {
+            splinePoints.push_back(pointOnCurve(points[i], points[i + 1], points[i + 2], points[i + 3], (1.0f / numSplines) * j));
+        }
+    }
+    splinePoints.push_back(points[points.length() - 2]);
+    return splinePoints;
+}
+
+QPoint GeneratedShape::pointOnCurve(QPoint p0, QPoint p1, QPoint p2, QPoint p3, float t) {
+    QPoint spline;
+
+    float t2 = t * t;
+    float t3 = t2 * t;
+
+    spline.setX(qRound(0.5f * ((2.0f * p1.x()) +
+    (-p0.x() + p2.x()) * t +
+    (2.0f * p0.x() - 5.0f * p1.x() + 4 * p2.x() - p3.x()) * t2 +
+    (-p0.x() + 3.0f * p1.x() - 3.0f * p2.x() + p3.x()) * t3)));
+
+    spline.setY(qRound(0.5f * ((2.0f * p1.y()) +
+    (-p0.y() + p2.y()) * t +
+    (2.0f * p0.y() - 5.0f * p1.y() + 4 * p2.y() - p3.y()) * t2 +
+    (-p0.y() + 3.0f * p1.y() - 3.0f * p2.y() + p3.y()) * t3)));
+
+    return spline;
 }
 
 double GeneratedShape::clip(double number, double max, double min) {

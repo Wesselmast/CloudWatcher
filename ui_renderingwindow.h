@@ -42,12 +42,12 @@ public:
     QSlider *ComplexitySmallSlider;
     QGroupBox *groupBox_3;
     QGridLayout *gridLayout_2;
+    QLabel *label_5;
     QLabel *label_6;
     QSlider *AggresivenessMediumSlider;
-    QLabel *label_7;
-    QLabel *label_5;
-    QSlider *IrregularityMediumSlider;
     QSlider *ComplexityMediumSlider;
+    QSlider *IrregularityMediumSlider;
+    QLabel *label_7;
     QGroupBox *groupBox_4;
     QGridLayout *gridLayout_3;
     QLabel *label_8;
@@ -66,7 +66,7 @@ public:
     {
         if (RenderingWindow->objectName().isEmpty())
             RenderingWindow->setObjectName(QString::fromUtf8("RenderingWindow"));
-        RenderingWindow->resize(893, 672);
+        RenderingWindow->resize(893, 701);
         centralWidget = new QWidget(RenderingWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -110,6 +110,7 @@ public:
 
         AggresivenessSmallSlider = new QSlider(groupBox_2);
         AggresivenessSmallSlider->setObjectName(QString::fromUtf8("AggresivenessSmallSlider"));
+        AggresivenessSmallSlider->setMaximum(70);
         AggresivenessSmallSlider->setOrientation(Qt::Horizontal);
 
         gridLayout->addWidget(AggresivenessSmallSlider, 1, 0, 1, 1);
@@ -151,6 +152,13 @@ public:
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        label_5 = new QLabel(groupBox_3);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        sizePolicy1.setHeightForWidth(label_5->sizePolicy().hasHeightForWidth());
+        label_5->setSizePolicy(sizePolicy1);
+
+        gridLayout_2->addWidget(label_5, 0, 0, 1, 1);
+
         label_6 = new QLabel(groupBox_3);
         label_6->setObjectName(QString::fromUtf8("label_6"));
         QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
@@ -163,29 +171,10 @@ public:
 
         AggresivenessMediumSlider = new QSlider(groupBox_3);
         AggresivenessMediumSlider->setObjectName(QString::fromUtf8("AggresivenessMediumSlider"));
+        AggresivenessMediumSlider->setMaximum(90);
         AggresivenessMediumSlider->setOrientation(Qt::Horizontal);
 
         gridLayout_2->addWidget(AggresivenessMediumSlider, 1, 0, 1, 1);
-
-        label_7 = new QLabel(groupBox_3);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-        sizePolicy2.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
-        label_7->setSizePolicy(sizePolicy2);
-
-        gridLayout_2->addWidget(label_7, 4, 0, 1, 1);
-
-        label_5 = new QLabel(groupBox_3);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-        sizePolicy1.setHeightForWidth(label_5->sizePolicy().hasHeightForWidth());
-        label_5->setSizePolicy(sizePolicy1);
-
-        gridLayout_2->addWidget(label_5, 0, 0, 1, 1);
-
-        IrregularityMediumSlider = new QSlider(groupBox_3);
-        IrregularityMediumSlider->setObjectName(QString::fromUtf8("IrregularityMediumSlider"));
-        IrregularityMediumSlider->setOrientation(Qt::Horizontal);
-
-        gridLayout_2->addWidget(IrregularityMediumSlider, 3, 0, 1, 1);
 
         ComplexityMediumSlider = new QSlider(groupBox_3);
         ComplexityMediumSlider->setObjectName(QString::fromUtf8("ComplexityMediumSlider"));
@@ -193,7 +182,20 @@ public:
         ComplexityMediumSlider->setMaximum(25);
         ComplexityMediumSlider->setOrientation(Qt::Horizontal);
 
-        gridLayout_2->addWidget(ComplexityMediumSlider, 5, 0, 1, 1);
+        gridLayout_2->addWidget(ComplexityMediumSlider, 6, 0, 1, 1);
+
+        IrregularityMediumSlider = new QSlider(groupBox_3);
+        IrregularityMediumSlider->setObjectName(QString::fromUtf8("IrregularityMediumSlider"));
+        IrregularityMediumSlider->setOrientation(Qt::Horizontal);
+
+        gridLayout_2->addWidget(IrregularityMediumSlider, 3, 0, 1, 1);
+
+        label_7 = new QLabel(groupBox_3);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+        sizePolicy2.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
+        label_7->setSizePolicy(sizePolicy2);
+
+        gridLayout_2->addWidget(label_7, 5, 0, 1, 1);
 
 
         verticalLayout_2->addWidget(groupBox_3);
@@ -299,7 +301,7 @@ public:
 
     void retranslateUi(QMainWindow *RenderingWindow)
     {
-        RenderingWindow->setWindowTitle(QApplication::translate("RenderingWindow", "Cloud Watching", nullptr));
+        RenderingWindow->setWindowTitle(QApplication::translate("RenderingWindow", "CloudWatcher", nullptr));
         groupBox->setTitle(QApplication::translate("RenderingWindow", "Shape Designer", nullptr));
         exportButton->setText(QApplication::translate("RenderingWindow", "Export", nullptr));
         groupBox_2->setTitle(QApplication::translate("RenderingWindow", "Small", nullptr));
@@ -307,9 +309,9 @@ public:
         label_2->setText(QApplication::translate("RenderingWindow", "Irregularity", nullptr));
         label_3->setText(QApplication::translate("RenderingWindow", "Complexity", nullptr));
         groupBox_3->setTitle(QApplication::translate("RenderingWindow", "Medium", nullptr));
+        label_5->setText(QApplication::translate("RenderingWindow", "Aggressiveness", nullptr));
         label_6->setText(QApplication::translate("RenderingWindow", "Irregularity", nullptr));
         label_7->setText(QApplication::translate("RenderingWindow", "Complexity", nullptr));
-        label_5->setText(QApplication::translate("RenderingWindow", "Aggressiveness", nullptr));
         groupBox_4->setTitle(QApplication::translate("RenderingWindow", "Big", nullptr));
         label_8->setText(QApplication::translate("RenderingWindow", "Aggressiveness", nullptr));
         label_9->setText(QApplication::translate("RenderingWindow", "Irregularity", nullptr));

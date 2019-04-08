@@ -23,12 +23,15 @@ private:
     QPolygon generatePolygon(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts);
     double clip(double number, double max, double min);
     double randomDouble(double a, double b);
+    QList<QPoint>generateSplines(QList<QPoint> points, int numSplines);
+    QPoint pointOnCurve(QPoint p0, QPoint p1, QPoint p2, QPoint p3, float t);
+
 private:
     QPolygon *smallPolygons;
     QPolygon *mediumPolygons;
     QPolygon *bigPolygons;
-    const int amtOfSmallPolygons = 7;
-    const int amtOfMediumPolygons = 4;
+    const int amtOfSmallPolygons = 0;
+    const int amtOfMediumPolygons = 0;
     const int amtOfBigPolygons = 2;
     double spikeynessSmall = 0;
     double wonkynessSmall = 0;
