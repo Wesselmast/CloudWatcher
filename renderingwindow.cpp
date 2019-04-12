@@ -30,9 +30,7 @@ void RenderingWindow::randomizeShapeButton() {
 }
 
 void RenderingWindow::generateShapeButton() {
-    shape->generate(wonkynessSmall, spikeynessSmall, complexitySmall,
-                    wonkynessMedium, spikeynessMedium, complexityMedium,
-                    wonkynessBig, spikeynessBig, complexityBig);
+    shape->generate();
 }
 
 void RenderingWindow::exportShapeButton() {
@@ -60,10 +58,6 @@ void RenderingWindow::on_ComplexitySmallSlider_valueChanged(int value) {
     complexitySmall = value;
 }
 
-void RenderingWindow::on_IrregularitySmallSlider_valueChanged(int value) {
-    wonkynessSmall = static_cast<double>(value * .005);
-}
-
 void RenderingWindow::on_AggresivenessMediumSlider_valueChanged(int value) {
     spikeynessMedium = static_cast<double>(value * .005);
 }
@@ -72,20 +66,12 @@ void RenderingWindow::on_ComplexityMediumSlider_valueChanged(int value) {
     complexityMedium = value;
 }
 
-void RenderingWindow::on_IrregularityMediumSlider_valueChanged(int value) {
-    wonkynessMedium = static_cast<double>(value * .005);
-}
-
 void RenderingWindow::on_AggresivenessBigSlider_valueChanged(int value) {
     spikeynessBig = static_cast<double>(value * .005);
 }
 
 void RenderingWindow::on_ComplexityBigSlider_valueChanged(int value) {
     complexityBig = value;
-}
-
-void RenderingWindow::on_IrregularityBigSlider_valueChanged(int value) {
-    wonkynessBig = static_cast<double>(value * .005);
 }
 
 RenderingWindow::~RenderingWindow() {

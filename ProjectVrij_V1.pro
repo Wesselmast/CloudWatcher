@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         renderingwindow.cpp \
-    generatedshape.cpp
+    generatedshape.cpp \
+    globals.cpp
 
 HEADERS += \
         renderingwindow.h \
-    generatedshape.h
+    generatedshape.h \
+    globals.h
 
 FORMS += \
         renderingwindow.ui

@@ -6,23 +6,23 @@
 #include <QtMath>
 #include <random>
 #include <QRandomGenerator>
+#include "globals.h"
 
 class GeneratedShape : public QGraphicsItem {
 public:
     GeneratedShape();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
-    void generate(double wonkynessSmall, double spikeynessSmall, int complexitySmall,
-                  double wonkynessMedium, double spikeynessMedium, int complexityMedium,
-                  double wonkynessBig, double spikeynessBig, int complexityBig);
+    void generate();
     ~GeneratedShape();
 public:
     QPen* pen;
     QBrush* brush;
 private:
-    QPolygon generatePolygon(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts);
+    QPolygon generatePolygon(int xPos, int yPos, double radius, double spikeyness, int numVerts, int numSplines);
     double clip(double number, double max, double min);
     double randomDouble(double a, double b);
+    QPoint randomPositionInTriangle(QPoint A, QPoint B, QPoint C);
     QList<QPoint>generateSplines(QList<QPoint> points, int numSplines);
     QPoint pointOnCurve(QPoint p0, QPoint p1, QPoint p2, QPoint p3, float t);
 
@@ -31,17 +31,9 @@ private:
     QPolygon *mediumPolygons;
     QPolygon *bigPolygons;
     const int amtOfSmallPolygons = 0;
-    const int amtOfMediumPolygons = 0;
-    const int amtOfBigPolygons = 2;
-    double spikeynessSmall = 0;
-    double wonkynessSmall = 0;
-    int complexitySmall = 5;
-    double spikeynessMedium = 0;
-    double wonkynessMedium = 0;
-    int complexityMedium = 5;
-    double spikeynessBig = 0;
-    double wonkynessBig = 0;
-    int complexityBig = 5;
+    const int amtOfMediumPolygons = 3;
+    const int amtOfBigPolygons = 3;
+
     bool canGenerate = true;
 };
 

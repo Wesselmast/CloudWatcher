@@ -23,30 +23,37 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     pen->setJoinStyle(Qt::RoundJoin);
 
     if(canGenerate) {
-        // MAKE THIS VARIABLE!
-        int leniency = 80;
+        // MAKE THESE VARIABLE!
+        int margin = 180;
+        int pointOfBalance = 99;
 
-        int maxX = qFloor((boundingRect().width() / 2) + leniency);
-        int minX = qFloor((boundingRect().width() / 2) - leniency);
-        int maxY = qFloor((boundingRect().height() / 2) + leniency);
-        int minY = qFloor((boundingRect().height() / 2) - leniency);
+        double slope = ((boundingRect().height() - margin) - margin) / 99;
+        int BDHeight = qFloor(margin + qRound(slope * (99 - pointOfBalance)));
+
+        QPolygon poly;
+        QPoint A(qFloor(boundingRect().width() / 2), margin);
+        QPoint B(qFloor(boundingRect().width()) - margin, BDHeight);
+        QPoint C(qFloor(boundingRect().width() / 2), qFloor(boundingRect().height()) - margin);
+        QPoint D(margin, BDHeight);
+
+        poly << A;
+        poly << B;
+        poly << C;
+        poly << D;
+        painter->drawPolygon(poly);
 
         for (int i = 0; i < amtOfSmallPolygons; ++i) {
-            int xPos = rand() % (maxX-minX) + minX;
-            int yPos = rand() % (maxY-minY) + minY;
-            smallPolygons[i] = QPolygon(generatePolygon(xPos, yPos, 15, wonkynessSmall, spikeynessSmall, complexitySmall));
+            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            smallPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 20, spikeynessSmall, complexitySmall, 1));
         }
         for (int i = 0; i < amtOfMediumPolygons; ++i) {
-            int xPos = rand() % (maxX-minX) + minX;
-            int yPos = rand() % (maxY-minY) + minY;
-            mediumPolygons[i] = QPolygon(generatePolygon(xPos, yPos, 35, wonkynessMedium, spikeynessMedium, complexityMedium));
+            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            mediumPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 40, spikeynessMedium, complexityMedium, 5));
         }
         for (int i = 0; i < amtOfBigPolygons; ++i) {
-            int xPos = rand() % (maxX-minX) + minX;
-            int yPos = rand() % (maxY-minY) + minY;
-            bigPolygons[i] = QPolygon(generatePolygon(xPos, yPos, 60, wonkynessBig, spikeynessBig, complexityBig));
+            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            bigPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 60, spikeynessBig, complexityBig, 2));
         }
-
         firstTime = false;
         canGenerate = false;
     }
@@ -72,34 +79,36 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     }
 }
 
-void GeneratedShape::generate(double wonkynessSmall, double spikeynessSmall, int complexitySmall,
-                              double wonkynessMedium, double spikeynessMedium, int complexityMedium,
-                              double wonkynessBig, double spikeynessBig, int complexityBig) {
+QPoint GeneratedShape::randomPositionInTriangle(QPoint A, QPoint B, QPoint C) {
+    double r1 = randomDouble(0, 1);
+    double r2 = randomDouble(0, 1);
+
+    return QPoint(
+                qFloor(
+                    (1 - sqrt(r1)) * A.x() +
+                    (sqrt(r1) * (1 - r2)) * B.x() +
+                    (sqrt(r1) * r2) * C.x()),
+                qFloor(
+                    (1 - sqrt(r1)) * A.y() +
+                    (sqrt(r1) * (1 - r2)) * B.y() +
+                    (sqrt(r1) * r2) * C.y())
+                );
+}
+
+
+void GeneratedShape::generate() {
     canGenerate = true;
-    this->wonkynessSmall = wonkynessSmall;
-    this->wonkynessMedium = wonkynessMedium;
-    this->wonkynessBig = wonkynessBig;
-    this->spikeynessSmall = spikeynessSmall;
-    this->spikeynessMedium = spikeynessMedium;
-    this->spikeynessBig = spikeynessBig;
-    this->complexitySmall = complexitySmall;
-    this->complexityMedium = complexityMedium;
-    this->complexityBig = complexityBig;
     update();
 }
 
-QPolygon GeneratedShape::generatePolygon(int xPos, int yPos, double radius, double wonkyness, double spikeyness, int numVerts) {
-    wonkyness = clip(wonkyness, 0, 1) * 2 * M_PI / numVerts;
+QPolygon GeneratedShape::generatePolygon(int xPos, int yPos, double radius, double spikeyness, int numVerts, int numSplines) {
     spikeyness = clip(spikeyness, 0, 1) * radius;
 
     QList<double> angleSteps;
-    double lower = (2 * M_PI / numVerts) - wonkyness;
-    double upper = (2 * M_PI / numVerts) + wonkyness;
     double sum = 0;
     for(int i = 0; i < numVerts; ++i) {
-        double temp = randomDouble(lower, upper);
-        angleSteps.push_back(temp);
-        sum += temp;
+        angleSteps.push_back(2 * M_PI / numVerts);
+        sum += 2 * M_PI / numVerts;
     }
     double k = sum / (2 * M_PI);
     for(int i = 0; i < numVerts; ++i) {
@@ -114,7 +123,7 @@ QPolygon GeneratedShape::generatePolygon(int xPos, int yPos, double radius, doub
         points.push_back(QPoint(xPos + qFloor(random * qCos(angle)), yPos + qFloor(random * qSin(angle))));
         angle += angleSteps[i];
     }
-    QList<QPoint> splinedPoints = generateSplines(points, 100);
+    QList<QPoint> splinedPoints = generateSplines(points, numSplines);
     for(int i = 0; i < splinedPoints.length(); ++i) {
         poly << splinedPoints[i];
     }

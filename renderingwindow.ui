@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>893</width>
+    <width>968</width>
     <height>701</height>
    </rect>
   </property>
@@ -49,6 +49,29 @@
           <string>Small</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
+          <item row="1" column="0">
+           <widget class="QSlider" name="AggresivenessSmallSlider">
+            <property name="maximum">
+             <number>70</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Complexity</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="sizePolicy">
@@ -62,56 +85,13 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QSlider" name="AggresivenessSmallSlider">
-            <property name="maximum">
-             <number>70</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Irregularity</string>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="0">
-           <widget class="QSlider" name="IrregularitySmallSlider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Complexity</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
            <widget class="QSlider" name="ComplexitySmallSlider">
             <property name="minimum">
-             <number>5</number>
+             <number>4</number>
             </property>
             <property name="maximum">
-             <number>25</number>
+             <number>15</number>
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -140,33 +120,10 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Irregularity</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QSlider" name="AggresivenessMediumSlider">
-            <property name="maximum">
-             <number>90</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
+          <item row="5" column="0">
            <widget class="QSlider" name="ComplexityMediumSlider">
             <property name="minimum">
-             <number>5</number>
+             <number>4</number>
             </property>
             <property name="maximum">
              <number>25</number>
@@ -176,14 +133,7 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QSlider" name="IrregularityMediumSlider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_7">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -196,6 +146,16 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="0">
+           <widget class="QSlider" name="AggresivenessMediumSlider">
+            <property name="maximum">
+             <number>90</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -205,6 +165,19 @@
           <string>Big</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
+          <item row="3" column="0">
+           <widget class="QSlider" name="ComplexityBigSlider">
+            <property name="minimum">
+             <number>4</number>
+            </property>
+            <property name="maximum">
+             <number>25</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_8">
             <property name="sizePolicy">
@@ -219,26 +192,6 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Irregularity</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QSlider" name="IrregularityBigSlider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
            <widget class="QLabel" name="label_10">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -253,19 +206,6 @@
           </item>
           <item row="1" column="0">
            <widget class="QSlider" name="AggresivenessBigSlider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QSlider" name="ComplexityBigSlider">
-            <property name="minimum">
-             <number>5</number>
-            </property>
-            <property name="maximum">
-             <number>25</number>
-            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
