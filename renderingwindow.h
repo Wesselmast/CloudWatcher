@@ -43,6 +43,14 @@ private slots:
     void on_ComplexityMediumSlider_valueChanged(int value);
     void on_AggresivenessBigSlider_valueChanged(int value);
     void on_ComplexityBigSlider_valueChanged(int value);
+    void on_CurvynessSmallSlider_valueChanged(int value);
+    void on_CurvynessMediumlSlider_valueChanged(int value);
+    void on_CurvynessBigSlider_valueChanged(int value);
+    void on_OuterMarginSlider_valueChanged(int value);
+    void on_CenterOfBalanceSlider_valueChanged(int value);
+    void on_AmountOfSmallShapes_valueChanged(int arg1);
+    void on_AmountOfMediumShapes_valueChanged(int arg1);
+    void on_AmountOfBigShapes_valueChanged(int arg1);
 };
 
 #endif // RENDERINGWINDOW_H

@@ -30,11 +30,16 @@ void RenderingWindow::randomizeShapeButton() {
 }
 
 void RenderingWindow::generateShapeButton() {
+    scene->update();
     shape->generate();
 }
 
 void RenderingWindow::exportShapeButton() {
-    QImage image(shape->boundingRect().size().toSize(), QImage::Format_ARGB32);
+
+    //NOT WORKING D: !!! BUT IT'S 2AM
+
+
+    QImage image(rect.size().toSize(), QImage::Format_ARGB32);
     image.fill(qRgba(255,255,255,0));
     QPainter painter(&image);
     QStyleOptionGraphicsItem opt;
@@ -42,9 +47,10 @@ void RenderingWindow::exportShapeButton() {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                 QDir::currentPath(),
                                 tr("CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
-    image.save(fileName);
+    QPixmap output = QPixmap::fromImage(image);
+    output.scaled(2028, 2028);
+    output.save(fileName);
 }
-
 void RenderingWindow::on_LineThickSlider_valueChanged(int value) {
     shape->pen->setWidth(value);
     shape->update();
@@ -72,6 +78,41 @@ void RenderingWindow::on_AggresivenessBigSlider_valueChanged(int value) {
 
 void RenderingWindow::on_ComplexityBigSlider_valueChanged(int value) {
     complexityBig = value;
+}
+
+void RenderingWindow::on_CurvynessSmallSlider_valueChanged(int value) {
+    curvynessSmall = value;
+}
+
+void RenderingWindow::on_CurvynessMediumlSlider_valueChanged(int value) {
+    curvynessMedium = value;
+}
+
+void RenderingWindow::on_CurvynessBigSlider_valueChanged(int value) {
+    curvynessBig = value;
+}
+
+void RenderingWindow::on_OuterMarginSlider_valueChanged(int value) {
+    margin = 99-value;
+}
+
+void RenderingWindow::on_CenterOfBalanceSlider_valueChanged(int value) {
+    pointOfBalance = value;
+}
+
+void RenderingWindow::on_AmountOfSmallShapes_valueChanged(int arg1) {
+    amtOfSmallPolygons = arg1;
+    shape->initPolygons();
+}
+
+void RenderingWindow::on_AmountOfMediumShapes_valueChanged(int arg1) {
+    amtOfMediumPolygons = arg1;
+    shape->initPolygons();
+}
+
+void RenderingWindow::on_AmountOfBigShapes_valueChanged(int arg1) {
+    amtOfBigPolygons = arg1;
+    shape->initPolygons();
 }
 
 RenderingWindow::~RenderingWindow() {

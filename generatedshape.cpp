@@ -5,27 +5,32 @@ static bool firstTime = true;
 
 GeneratedShape::GeneratedShape() {
     setFlag(ItemIsMovable);
+    setFlag(ItemIgnoresTransformations);
     pen = new QPen(Qt::black);
     brush = new QBrush(Qt::black);
-    smallPolygons = new QPolygon[amtOfSmallPolygons];
-    mediumPolygons = new QPolygon[amtOfMediumPolygons];
-    bigPolygons = new QPolygon[amtOfBigPolygons];
+    localBoundingRect = QRectF(0, 0, 512, 512);
+    initPolygons();
     canGenerate = false;
 }
 
 QRectF GeneratedShape::boundingRect() const {
-    return QRectF(0, 0, 512, 512);
+    return localBoundingRect;
+}
+
+void GeneratedShape::initPolygons() {
+    smallPolygons = new QPolygon[amtOfSmallPolygons];
+    mediumPolygons = new QPolygon[amtOfMediumPolygons];
+    bigPolygons = new QPolygon[amtOfBigPolygons];
 }
 
 void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
     pen->setJoinStyle(Qt::RoundJoin);
-
     if(canGenerate) {
-        // MAKE THESE VARIABLE!
-        int margin = 180;
-        int pointOfBalance = 99;
+        localBigAmtOfPolygons = amtOfBigPolygons;
+        localMediumAmtOfPolygons = amtOfMediumPolygons;
+        localSmallAmtOfPolygons = amtOfSmallPolygons;
 
         double slope = ((boundingRect().height() - margin) - margin) / 99;
         int BDHeight = qFloor(margin + qRound(slope * (99 - pointOfBalance)));
@@ -37,46 +42,92 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         QPoint D(margin, BDHeight);
 
         poly << A;
-        poly << B;
-        poly << C;
-        poly << D;
-        painter->drawPolygon(poly);
 
+        poly << B;
+
+        poly << C;
+
+        poly << D;
+
+        painter->drawPolygon(poly);
         for (int i = 0; i < amtOfSmallPolygons; ++i) {
             QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
-            smallPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 20, spikeynessSmall, complexitySmall, 1));
+            smallPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 30, spikeynessSmall, complexitySmall, curvynessSmall));
         }
         for (int i = 0; i < amtOfMediumPolygons; ++i) {
             QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
-            mediumPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 40, spikeynessMedium, complexityMedium, 5));
+            mediumPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 55, spikeynessMedium, complexityMedium, curvynessMedium));
         }
         for (int i = 0; i < amtOfBigPolygons; ++i) {
             QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
-            bigPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 60, spikeynessBig, complexityBig, 2));
+            bigPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), 100, spikeynessBig, complexityBig, curvynessBig));
         }
         firstTime = false;
         canGenerate = false;
     }
     if(firstTime) return;
     painter->setPen(*pen);
-    for (int i = 0; i < amtOfSmallPolygons; ++i) {
+
+    double minimumX = 9999;
+    double maximumX = -9999;
+    double minimumY = 9999;
+    double maximumY = -9999;
+
+    for (int i = 0; i < localSmallAmtOfPolygons; ++i) {
         QPainterPath path;
         path.addPolygon(smallPolygons[i]);
         painter->fillPath(path, *brush);
         painter->drawPolygon(smallPolygons[i]);
+        if(smallPolygons[i].boundingRect().x() < minimumX) {
+            minimumX = smallPolygons[i].boundingRect().x();
+        }
+        else if(smallPolygons[i].boundingRect().x() + smallPolygons[i].boundingRect().width() > maximumX) {
+            maximumX = smallPolygons[i].boundingRect().x() + smallPolygons[i].boundingRect().width();
+        }
+        if(smallPolygons[i].boundingRect().y() < minimumY) {
+            minimumY = smallPolygons[i].boundingRect().y();
+        }
+        else if(smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height() > maximumY) {
+            maximumY = smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height();
+        }
     }
-    for (int i = 0; i < amtOfMediumPolygons; ++i) {
+    for (int i = 0; i < localMediumAmtOfPolygons; ++i) {
         QPainterPath path;
         path.addPolygon(mediumPolygons[i]);
         painter->fillPath(path, *brush);
         painter->drawPolygon(mediumPolygons[i]);
+        if(mediumPolygons[i].boundingRect().x() < minimumX) {
+            minimumX = mediumPolygons[i].boundingRect().x();
+        }
+        else if(mediumPolygons[i].boundingRect().x() + mediumPolygons[i].boundingRect().width() > maximumX) {
+            maximumX = mediumPolygons[i].boundingRect().x() + mediumPolygons[i].boundingRect().width();
+        }
+        if(mediumPolygons[i].boundingRect().y() < minimumY) {
+            minimumY = mediumPolygons[i].boundingRect().y();
+        }
+        else if(mediumPolygons[i].boundingRect().y() + mediumPolygons[i].boundingRect().height() > maximumY) {
+            maximumY = mediumPolygons[i].boundingRect().y() + mediumPolygons[i].boundingRect().height();
+        }
     }
-    for (int i = 0; i < amtOfBigPolygons; ++i) {
+    for (int i = 0; i < localBigAmtOfPolygons; ++i) {
         QPainterPath path;
         path.addPolygon(bigPolygons[i]);
         painter->fillPath(path, *brush);
         painter->drawPolygon(bigPolygons[i]);
+        if(bigPolygons[i].boundingRect().x() < minimumX) {
+            minimumX = bigPolygons[i].boundingRect().x();
+        }
+        else if(bigPolygons[i].boundingRect().x() + bigPolygons[i].boundingRect().width() > maximumX) {
+            maximumX = bigPolygons[i].boundingRect().x() + bigPolygons[i].boundingRect().width();
+        }
+        if(bigPolygons[i].boundingRect().y() < minimumY) {
+            minimumY = bigPolygons[i].boundingRect().y();
+        }
+        else if(bigPolygons[i].boundingRect().y() + bigPolygons[i].boundingRect().height() > maximumY) {
+            maximumY = bigPolygons[i].boundingRect().y() + bigPolygons[i].boundingRect().height() ;
+        }
     }
+    localBoundingRect = QRectF(minimumX, minimumY, maximumX-minimumX, maximumY-minimumY);
 }
 
 QPoint GeneratedShape::randomPositionInTriangle(QPoint A, QPoint B, QPoint C) {

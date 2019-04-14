@@ -13,6 +13,7 @@ public:
     GeneratedShape();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
+    void initPolygons();
     void generate();
     ~GeneratedShape();
 public:
@@ -30,10 +31,10 @@ private:
     QPolygon *smallPolygons;
     QPolygon *mediumPolygons;
     QPolygon *bigPolygons;
-    const int amtOfSmallPolygons = 0;
-    const int amtOfMediumPolygons = 3;
-    const int amtOfBigPolygons = 3;
-
+    QRectF localBoundingRect;
+    int localSmallAmtOfPolygons = 5;
+    int localMediumAmtOfPolygons = 5;
+    int localBigAmtOfPolygons = 5;
     bool canGenerate = true;
 };
 
