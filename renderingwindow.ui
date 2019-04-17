@@ -51,9 +51,9 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-226</y>
+         <y>-355</y>
          <width>133</width>
-         <height>909</height>
+         <height>1085</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -62,144 +62,21 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="exportButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_12">
           <property name="text">
-           <string>Export</string>
+           <string>Center of Balance</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="title">
-           <string>Small</string>
-          </property>
-          <layout class="QFormLayout" name="formLayout_2">
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_13">
-             <property name="text">
-              <string>Amount</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QSpinBox" name="AmountOfSmallShapes">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="maximum">
-              <number>10</number>
-             </property>
-             <property name="value">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Spikeyness</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QSlider" name="AggresivenessSmallSlider">
-             <property name="maximum">
-              <number>70</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Curvyness</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QSlider" name="CurvynessSmallSlider">
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>10</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="label_3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Complexity</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0">
-            <widget class="QSlider" name="ComplexitySmallSlider">
-             <property name="minimum">
-              <number>4</number>
-             </property>
-             <property name="maximum">
-              <number>15</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="3" column="0">
          <widget class="QGroupBox" name="groupBox_3">
           <property name="title">
-           <string>Medium</string>
+           <string>Medium Shapes</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="4" column="0">
-            <widget class="QSlider" name="AggresivenessMediumSlider">
-             <property name="maximum">
-              <number>90</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0">
+           <item row="10" column="0">
             <widget class="QSlider" name="ComplexityMediumSlider">
              <property name="minimum">
               <number>4</number>
@@ -212,56 +89,10 @@
              </property>
             </widget>
            </item>
-           <item row="6" column="0">
-            <widget class="QSlider" name="CurvynessMediumlSlider">
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>10</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_5">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Spikeyness</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_14">
              <property name="text">
               <string>Amount</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>Curvyness</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="label_7">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Complexity</string>
              </property>
             </widget>
            </item>
@@ -287,16 +118,119 @@
              </property>
             </widget>
            </item>
+           <item row="6" column="0">
+            <widget class="QSlider" name="AggresivenessMediumSlider">
+             <property name="maximum">
+              <number>90</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Spikeyness</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="label_7">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Complexity</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QSlider" name="CurvynessMediumlSlider">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Radius</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Curvyness</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QSlider" name="RadiusMediumSlider">
+             <property name="minimum">
+              <number>15</number>
+             </property>
+             <property name="maximum">
+              <number>60</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
         <item row="4" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>Spacing</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="exportButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Export</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
          <widget class="QGroupBox" name="groupBox_4">
           <property name="title">
-           <string>Big</string>
+           <string>Big Shapes</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
-           <item row="5" column="0">
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>Radius</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
             <widget class="QSlider" name="CurvynessBigSlider">
              <property name="minimum">
               <number>1</number>
@@ -309,21 +243,14 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="5" column="0">
             <widget class="QSlider" name="AggresivenessBigSlider">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>Curvyness</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
+           <item row="9" column="0">
             <widget class="QSlider" name="ComplexityBigSlider">
              <property name="minimum">
               <number>4</number>
@@ -336,7 +263,7 @@
              </property>
             </widget>
            </item>
-           <item row="6" column="0">
+           <item row="8" column="0">
             <widget class="QLabel" name="label_10">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -349,7 +276,21 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="6" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Curvyness</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Amount</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
             <widget class="QLabel" name="label_8">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -359,13 +300,6 @@
              </property>
              <property name="text">
               <string>Spikeyness</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_15">
-             <property name="text">
-              <string>Amount</string>
              </property>
             </widget>
            </item>
@@ -388,47 +322,196 @@
              </property>
             </widget>
            </item>
+           <item row="3" column="0">
+            <widget class="QSlider" name="RadiusBigSlider">
+             <property name="minimum">
+              <number>30</number>
+             </property>
+             <property name="maximum">
+              <number>120</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>Spacing</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0">
-         <widget class="QSlider" name="OuterMarginSlider">
+        <item row="12" column="0">
+         <widget class="QSlider" name="LineThickSlider">
           <property name="minimum">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="maximum">
-           <number>99</number>
-          </property>
-          <property name="value">
-           <number>0</number>
+           <number>15</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="label_12">
+        <item row="14" column="0">
+         <widget class="QPushButton" name="generateButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
-           <string>Center of Balance</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="0">
-         <widget class="QSlider" name="CenterOfBalanceSlider">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <string>Generate</string>
           </property>
          </widget>
         </item>
         <item row="9" column="0">
+         <widget class="QLabel" name="label_19">
+          <property name="text">
+           <string>Vertical / Diagonal</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>Small Shapes</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Amount</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="AmountOfSmallShapes">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Radius</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QSlider" name="RadiusSmallSlider">
+             <property name="minimum">
+              <number>5</number>
+             </property>
+             <property name="maximum">
+              <number>25</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Spikeyness</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QSlider" name="AggresivenessSmallSlider">
+             <property name="maximum">
+              <number>70</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Curvyness</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QSlider" name="CurvynessSmallSlider">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Complexity</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QSlider" name="ComplexitySmallSlider">
+             <property name="minimum">
+              <number>4</number>
+             </property>
+             <property name="maximum">
+              <number>15</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="13" column="0">
+         <widget class="QPushButton" name="randomizeButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Randomize</string>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
          <widget class="QLabel" name="label_4">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -442,41 +525,32 @@
          </widget>
         </item>
         <item row="10" column="0">
-         <widget class="QSlider" name="LineThickSlider">
-          <property name="minimum">
-           <number>2</number>
-          </property>
-          <property name="maximum">
-           <number>15</number>
-          </property>
+         <widget class="QSlider" name="VerticalDiagonalSlider">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="11" column="0">
-         <widget class="QPushButton" name="randomizeButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Randomize</string>
+        <item row="8" column="0">
+         <widget class="QSlider" name="CenterOfBalanceSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="12" column="0" colspan="2">
-         <widget class="QPushButton" name="generateButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item row="6" column="0">
+         <widget class="QSlider" name="OuterMarginSlider">
+          <property name="minimum">
+           <number>-40</number>
           </property>
-          <property name="text">
-           <string>Generate</string>
+          <property name="maximum">
+           <number>60</number>
+          </property>
+          <property name="value">
+           <number>-40</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>

@@ -15,5 +15,9 @@ extern int pointOfBalance;
 extern int amtOfSmallPolygons;
 extern int amtOfMediumPolygons;
 extern int amtOfBigPolygons;
+extern int radiusSmall;
+extern int radiusMedium;
+extern int radiusBig;
+extern int angularness;
 
 #endif // GLOBALS_H

@@ -11,6 +11,7 @@
 #include <QList>
 #include <QStyleOptionGraphicsItem>
 #include <QFileDialog>
+#include <QSpinBox>
 #include "globals.h"
 
 namespace Ui {
@@ -32,6 +33,7 @@ private:
     QGraphicsScene *scene;
     GeneratedShape *shape;
     QList<QSlider*> sliders;
+    QList<QSpinBox*> spinBoxes;
 private slots:
     void generateShapeButton();
     void exportShapeButton();
@@ -51,6 +53,10 @@ private slots:
     void on_AmountOfSmallShapes_valueChanged(int arg1);
     void on_AmountOfMediumShapes_valueChanged(int arg1);
     void on_AmountOfBigShapes_valueChanged(int arg1);
+    void on_RadiusSmallSlider_valueChanged(int value);
+    void on_RadiusMediumSlider_valueChanged(int value);
+    void on_RadiusBigSlider_valueChanged(int value);
+    void on_VerticalDiagonalSlider_valueChanged(int value);
 };
 
 #endif // RENDERINGWINDOW_H

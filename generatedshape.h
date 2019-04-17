@@ -35,6 +35,7 @@ private:
     int localSmallAmtOfPolygons = 5;
     int localMediumAmtOfPolygons = 5;
     int localBigAmtOfPolygons = 5;
+    const int size = 512;
     bool canGenerate = true;
 };
 
