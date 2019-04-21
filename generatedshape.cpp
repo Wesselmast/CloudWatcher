@@ -1,15 +1,13 @@
 #include "generatedshape.h"
 #include <QDebug>
 
-static bool firstTime = true;
-const bool drawSizePolygon = false;
-
 GeneratedShape::GeneratedShape() {
     setFlag(ItemIsMovable);
     setFlag(ItemIgnoresTransformations);
     pen = new QPen(Qt::black);
     brush = new QBrush(Qt::black);
-    localBoundingRect = QRectF(0, 0, size, size);
+    localBoundingRect = QRectF(0, 0, width, height);
+    startTransform = transform();
     initPolygons();
     canGenerate = false;
 }
@@ -29,18 +27,21 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     Q_UNUSED(widget);
     pen->setJoinStyle(Qt::RoundJoin);
     if(canGenerate) {
+        setTransform(startTransform);
+
         localBigAmtOfPolygons = amtOfBigPolygons;
         localMediumAmtOfPolygons = amtOfMediumPolygons;
         localSmallAmtOfPolygons = amtOfSmallPolygons;
 
-        double slope = ((size - margin) - margin) / 99.0;
-        int localPointOfBalance = qFloor(margin + qRound(slope * (99.0 - pointOfBalance)));
-        int mappedAngularness = qFloor(slope * angularness);
-        int localAngularness = (rand() % 2 + 1) == 1 ? size/2 - mappedAngularness/2: size/2 + mappedAngularness/2;
+        double heightSlope = ((height - margin) - margin) / 99.0;
+        double widthSlope = ((width - margin) - margin) / 99.0;
+        int localPointOfBalance = qFloor(margin + qRound(heightSlope * (99.0 - pointOfBalance)));
+        int mappedAngularness = qFloor(widthSlope * angularness);
+        int localAngularness = (rand() % 2 + 1) == 1 ? width/2 - mappedAngularness/2 : width/2 + mappedAngularness/2;
 
         QPoint A(localAngularness, margin);
-        QPoint B(size - margin, localPointOfBalance);
-        QPoint C(localAngularness, size - margin);
+        QPoint B(width - margin, localPointOfBalance);
+        QPoint C(localAngularness, height - margin);
         QPoint D(margin, localPointOfBalance);
 
         if(drawSizePolygon) {
@@ -79,26 +80,8 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     double minimumY = 9999;
     double maximumY = -9999;
 
-    double edgeMargin = 30;
+    double edgeMargin = 50;
 
-    for (int i = 0; i < localSmallAmtOfPolygons; ++i) {
-        QPainterPath path;
-        path.addPolygon(smallPolygons[i]);
-        painter->fillPath(path, *brush);
-        painter->drawPolygon(smallPolygons[i]);
-        if(smallPolygons[i].boundingRect().x() < minimumX) {
-            minimumX = smallPolygons[i].boundingRect().x() - edgeMargin;
-        }
-        else if(smallPolygons[i].boundingRect().x() + smallPolygons[i].boundingRect().width() > maximumX) {
-            maximumX = smallPolygons[i].boundingRect().x() + smallPolygons[i].boundingRect().width() + edgeMargin;
-        }
-        if(smallPolygons[i].boundingRect().y() < minimumY) {
-            minimumY = smallPolygons[i].boundingRect().y() - edgeMargin;
-        }
-        else if(smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height() > maximumY) {
-            maximumY = smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height() + edgeMargin;
-        }
-    }
     for (int i = 0; i < localMediumAmtOfPolygons; ++i) {
         QPainterPath path;
         path.addPolygon(mediumPolygons[i]);
@@ -135,6 +118,28 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
             maximumY = bigPolygons[i].boundingRect().y() + bigPolygons[i].boundingRect().height() + edgeMargin;
         }
     }
+    brush->setColor(Qt::white);
+    painter->setPen(QPen(Qt::white));
+    for (int i = 0; i < localSmallAmtOfPolygons; ++i) {
+        QPainterPath path;
+        path.addPolygon(smallPolygons[i]);
+        painter->fillPath(path, *brush);
+        painter->drawPolygon(smallPolygons[i]);
+        if(smallPolygons[i].boundingRect().x() < minimumX) {
+            minimumX = smallPolygons[i].boundingRect().x() - edgeMargin;
+        }
+        else if(smallPolygons[i].boundingRect().x() + smallPolygons[i].boundingRect().width() > maximumX) {
+            maximumX = smallPolygons[i].boundingRect().x() + smallPolygons[i].boundingRect().width() + edgeMargin;
+        }
+        if(smallPolygons[i].boundingRect().y() < minimumY) {
+            minimumY = smallPolygons[i].boundingRect().y() - edgeMargin;
+        }
+        else if(smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height() > maximumY) {
+            maximumY = smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height() + edgeMargin;
+        }
+    }
+    brush->setColor(Qt::black);
+    painter->setPen(Qt::black);
     localBoundingRect = QRectF(minimumX, minimumY, maximumX-minimumX, maximumY-minimumY);
 }
 
@@ -229,6 +234,59 @@ double GeneratedShape::clip(double number, double max, double min) {
 double GeneratedShape::randomDouble(double a, double b) {
     double random = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
     return a + (random * (b - a));
+}
+
+void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+    QMenu *menu = new QMenu();
+    QMenu *rotateCanvas = new QMenu("Rotate Canvas");
+    QAction* clockwise = new QAction("90° CW");
+    QAction* counterClockwise = new QAction("90° CCW");
+    QAction* horizontalFlip = new QAction("Flip Horizontal");
+    QAction* verticalFlip = new QAction("Flip Vertical");
+    rotateCanvas->addAction(clockwise);
+    rotateCanvas->addAction(counterClockwise);
+    rotateCanvas->addSeparator();
+    rotateCanvas->addAction(horizontalFlip);
+    rotateCanvas->addAction(verticalFlip);
+    connect(clockwise, &QAction::triggered, this, [=]() { rotateShape(90); });
+    connect(counterClockwise, &QAction::triggered, this, [=]() { rotateShape(-90); });
+    connect(horizontalFlip, &QAction::triggered, this, [=]() {
+        qreal localm31 = boundingRect().width() * scale();
+        if(transform().m31() > 0) localm31 = 0;
+        setTransform(QTransform(
+                         -transform().m11(),
+                         transform().m12(),
+                         transform().m13(),
+                         transform().m21(),
+                         transform().m22(),
+                         transform().m23(),
+                         localm31,
+                         transform().m32(),
+                         transform().m33()
+                         ));
+    });
+    connect(verticalFlip, &QAction::triggered, this, [=]() {
+        qreal localm32 = boundingRect().height() * scale();
+        if(transform().m32() > 0) localm32 = 0;
+        setTransform(QTransform(
+                         transform().m11(),
+                         transform().m12(),
+                         transform().m13(),
+                         transform().m21(),
+                         -transform().m22(),
+                         transform().m23(),
+                         transform().m31(),
+                         localm32,
+                         transform().m33()
+                         ));
+    });
+    menu->addMenu(rotateCanvas);
+    menu->popup(event->screenPos());
+}
+
+void GeneratedShape::rotateShape(int amt) {
+    setTransformOriginPoint(boundingRect().center());
+    setRotation(rotation() + amt);
 }
 
 GeneratedShape::~GeneratedShape() {

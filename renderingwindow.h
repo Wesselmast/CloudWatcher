@@ -26,6 +26,7 @@ public:
     explicit RenderingWindow(QWidget *parent = nullptr);
     ~RenderingWindow();
 private:
+    void setGlobalsToSliders();
     void generateShape(GeneratedShape *shapeCollection, int size, int amtOfShapes, double wonkyness, double spikeyness, int complexity);
     void lineThickness(GeneratedShape *shapeCollection, int value, int amtOfShapes);
 private:
@@ -33,7 +34,6 @@ private:
     QGraphicsScene *scene;
     GeneratedShape *shape;
     QList<QSlider*> sliders;
-    QList<QSpinBox*> spinBoxes;
 private slots:
     void generateShapeButton();
     void exportShapeButton();
@@ -57,6 +57,7 @@ private slots:
     void on_RadiusMediumSlider_valueChanged(int value);
     void on_RadiusBigSlider_valueChanged(int value);
     void on_VerticalDiagonalSlider_valueChanged(int value);
+    void on_presetDropdown_currentIndexChanged(int index);
 };
 
 #endif // RENDERINGWINDOW_H
