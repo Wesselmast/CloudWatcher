@@ -49,6 +49,8 @@ void RenderingWindow::randomizeShapeButton() {
 
 void RenderingWindow::generateShapeButton() {
     scene->update();
+    shape->transform().reset();
+    shape->setRotation(0);
     shape->generate();
 }
 

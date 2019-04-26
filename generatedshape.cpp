@@ -2,8 +2,8 @@
 #include <QDebug>
 
 GeneratedShape::GeneratedShape() {
-    setFlag(ItemIsMovable);
-    setFlag(ItemIgnoresTransformations);
+    //setFlag(ItemIsMovable);
+    //setFlag(ItemIgnoresTransformations);
     pen = new QPen(Qt::black);
     brush = new QBrush(Qt::black);
     localBoundingRect = QRectF(0, 0, width, height);
@@ -80,7 +80,7 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     double minimumY = 9999;
     double maximumY = -9999;
 
-    double edgeMargin = 50;
+    double edgeMargin = 35;
 
     for (int i = 0; i < localMediumAmtOfPolygons; ++i) {
         QPainterPath path;
@@ -118,8 +118,8 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
             maximumY = bigPolygons[i].boundingRect().y() + bigPolygons[i].boundingRect().height() + edgeMargin;
         }
     }
-    brush->setColor(Qt::white);
-    painter->setPen(QPen(Qt::white));
+    //brush->setColor(Qt::white);
+    //painter->setPen(QPen(Qt::white));
     for (int i = 0; i < localSmallAmtOfPolygons; ++i) {
         QPainterPath path;
         path.addPolygon(smallPolygons[i]);
@@ -138,8 +138,8 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
             maximumY = smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height() + edgeMargin;
         }
     }
-    brush->setColor(Qt::black);
-    painter->setPen(Qt::black);
+    //brush->setColor(Qt::black);
+    //painter->setPen(Qt::black);
     localBoundingRect = QRectF(minimumX, minimumY, maximumX-minimumX, maximumY-minimumY);
 }
 
