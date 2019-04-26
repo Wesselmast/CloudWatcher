@@ -6,7 +6,7 @@
 #include <QtMath>
 #include <random>
 #include <QRandomGenerator>
-#include "globals.h"
+#include "_include/globals.h"
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 

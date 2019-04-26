@@ -1,4 +1,4 @@
-#include "renderingwindow.h"
+#include "_include/renderingwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

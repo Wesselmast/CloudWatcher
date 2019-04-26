@@ -12,7 +12,7 @@
 #include <QStyleOptionGraphicsItem>
 #include <QFileDialog>
 #include <QSpinBox>
-#include "globals.h"
+#include "_include/globals.h"
 
 namespace Ui {
 class RenderingWindow;

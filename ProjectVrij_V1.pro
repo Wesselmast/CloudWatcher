@@ -25,18 +25,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        renderingwindow.cpp \
-    generatedshape.cpp \
-    globals.cpp
+        _src/main.cpp \
+        _src/renderingwindow.cpp \
+        _src/generatedshape.cpp \
+        _src/globals.cpp
 
 HEADERS += \
-        renderingwindow.h \
-    generatedshape.h \
-    globals.h
+        _include/renderingwindow.h \
+        _include/generatedshape.h \
+        _include/globals.h
 
 FORMS += \
-        renderingwindow.ui
+        _form/renderingwindow.ui
+
+UI_DIR += \_include
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,9 +1,7 @@
-#include "generatedshape.h"
+#include "_include/generatedshape.h"
 #include <QDebug>
 
 GeneratedShape::GeneratedShape() {
-    //setFlag(ItemIsMovable);
-    //setFlag(ItemIgnoresTransformations);
     pen = new QPen(Qt::black);
     brush = new QBrush(Qt::black);
     localBoundingRect = QRectF(0, 0, width, height);

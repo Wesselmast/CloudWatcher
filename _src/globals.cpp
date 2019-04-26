@@ -1,4 +1,4 @@
-#include "globals.h"
+#include "_include/globals.h"
 
 
 int amtOfSmallPolygons = 5;

@@ -1,5 +1,5 @@
-#include "renderingwindow.h"
-#include "ui_renderingwindow.h"
+#include "_include/renderingwindow.h"
+#include "_include/ui_renderingwindow.h"
 
 RenderingWindow::RenderingWindow(QWidget *parent) :
     QMainWindow(parent),
