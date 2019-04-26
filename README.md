@@ -7,7 +7,7 @@ developed by a team of three students from the Netherlands called 'Toolbird'.
 
 # Getting Started
 
-Installing cloudwatcher is quite easy, here is a step-by-step process:
+Installing CloudWatching is quite easy, here is a step-by-step process:
   - Download or clone the repository
   - Navigate to release and find the cloudwatching executable
   
