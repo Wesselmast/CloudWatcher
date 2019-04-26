@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ProjectVrij_V1
+TARGET = CloudWatching
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -39,6 +39,9 @@ FORMS += \
         _form/renderingwindow.ui
 
 UI_DIR += \_include
+
+MOC_DIR += _generated
+OBJECTS_DIR += _generated
 
 
 # Default rules for deployment.

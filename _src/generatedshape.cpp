@@ -236,7 +236,7 @@ double GeneratedShape::randomDouble(double a, double b) {
 
 void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     QMenu *menu = new QMenu();
-    QMenu *rotateCanvas = new QMenu("Rotate Canvas");
+    QMenu *rotateCanvas = new QMenu("Rotate Shape");
     QAction* clockwise = new QAction("90° CW");
     QAction* counterClockwise = new QAction("90° CCW");
     QAction* horizontalFlip = new QAction("Flip Horizontal");
