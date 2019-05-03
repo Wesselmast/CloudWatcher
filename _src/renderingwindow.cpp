@@ -185,15 +185,12 @@ void RenderingWindow::on_CenterOfBalanceSlider_valueChanged(int value) {
 }
 void RenderingWindow::on_AmountOfSmallShapes_valueChanged(int arg1) {
     amtOfSmallPolygons = arg1;
-    shape->initPolygons();
 }
 void RenderingWindow::on_AmountOfMediumShapes_valueChanged(int arg1) {
     amtOfMediumPolygons = arg1;
-    shape->initPolygons();
 }
 void RenderingWindow::on_AmountOfBigShapes_valueChanged(int arg1) {
     amtOfBigPolygons = arg1;
-    shape->initPolygons();
 }
 void RenderingWindow::on_RadiusSmallSlider_valueChanged(int value) {
     radiusSmall = value;

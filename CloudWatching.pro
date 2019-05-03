@@ -31,6 +31,7 @@ SOURCES += \
         _src/globals.cpp
 
 HEADERS += \
+        _include/math.h \
         _include/renderingwindow.h \
         _include/generatedshape.h \
         _include/globals.h

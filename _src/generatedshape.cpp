@@ -5,8 +5,6 @@ GeneratedShape::GeneratedShape() {
     pen = new QPen(Qt::black);
     brush = new QBrush(Qt::black);
     localBoundingRect = QRectF(0, 0, width, height);
-    startTransform = transform();
-    initPolygons();
     canGenerate = false;
 }
 
@@ -14,22 +12,12 @@ QRectF GeneratedShape::boundingRect() const {
     return localBoundingRect;
 }
 
-void GeneratedShape::initPolygons() {
-    smallPolygons = new QPolygon[amtOfSmallPolygons];
-    mediumPolygons = new QPolygon[amtOfMediumPolygons];
-    bigPolygons = new QPolygon[amtOfBigPolygons];
-}
-
 void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
     pen->setJoinStyle(Qt::RoundJoin);
     if(canGenerate) {
-        setTransform(startTransform);
-
-        localBigAmtOfPolygons = amtOfBigPolygons;
-        localMediumAmtOfPolygons = amtOfMediumPolygons;
-        localSmallAmtOfPolygons = amtOfSmallPolygons;
+        polygons.clear();
 
         double heightSlope = ((height - margin) - margin) / 99.0;
         double widthSlope = ((width - margin) - margin) / 99.0;
@@ -44,10 +32,7 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
         if(drawSizePolygon) {
             QPolygon poly;
-            poly << A;
-            poly << B;
-            poly << C;
-            poly << D;
+            poly << A << B << C << D;
             painter->drawPolygon(poly);
             painter->drawText(A, "A");
             painter->drawText(B, "B");
@@ -57,15 +42,15 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
         for (int i = 0; i < amtOfSmallPolygons; ++i) {
             QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
-            smallPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), radiusSmall, spikeynessSmall, complexitySmall, curvynessSmall));
+            polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), radiusSmall, spikeynessSmall, complexitySmall, curvynessSmall)));
         }
         for (int i = 0; i < amtOfMediumPolygons; ++i) {
             QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
-            mediumPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), radiusMedium, spikeynessMedium, complexityMedium, curvynessMedium));
+            polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), radiusMedium, spikeynessMedium, complexityMedium, curvynessMedium)));
         }
         for (int i = 0; i < amtOfBigPolygons; ++i) {
             QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
-            bigPolygons[i] = QPolygon(generatePolygon(point.x(), point.y(), radiusBig, spikeynessBig, complexityBig, curvynessBig));
+            polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), radiusBig, spikeynessBig, complexityBig, curvynessBig)));
         }
         firstTime = false;
         canGenerate = false;
@@ -77,67 +62,26 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     double maximumX = -9999;
     double minimumY = 9999;
     double maximumY = -9999;
-
     double edgeMargin = 35;
 
-    for (int i = 0; i < localMediumAmtOfPolygons; ++i) {
+    for (int i = 0; i < polygons.size(); ++i) {
         QPainterPath path;
-        path.addPolygon(mediumPolygons[i]);
+        path.addPolygon(polygons[i]);
         painter->fillPath(path, *brush);
-        painter->drawPolygon(mediumPolygons[i]);
-        if(mediumPolygons[i].boundingRect().x() < minimumX) {
-            minimumX = mediumPolygons[i].boundingRect().x() - edgeMargin;
+        painter->drawPolygon(polygons[i]);
+        if(polygons[i].boundingRect().x() < minimumX) {
+            minimumX = polygons[i].boundingRect().x() - edgeMargin;
         }
-        else if(mediumPolygons[i].boundingRect().x() + mediumPolygons[i].boundingRect().width() > maximumX) {
-            maximumX = mediumPolygons[i].boundingRect().x() + mediumPolygons[i].boundingRect().width() + edgeMargin;
+        else if(polygons[i].boundingRect().x() + polygons[i].boundingRect().width() > maximumX) {
+            maximumX = polygons[i].boundingRect().x() + polygons[i].boundingRect().width() + edgeMargin;
         }
-        if(mediumPolygons[i].boundingRect().y() < minimumY) {
-            minimumY = mediumPolygons[i].boundingRect().y() - edgeMargin;
+        if(polygons[i].boundingRect().y() < minimumY) {
+            minimumY = polygons[i].boundingRect().y() - edgeMargin;
         }
-        else if(mediumPolygons[i].boundingRect().y() + mediumPolygons[i].boundingRect().height() > maximumY) {
-            maximumY = mediumPolygons[i].boundingRect().y() + mediumPolygons[i].boundingRect().height() + edgeMargin;
+        else if(polygons[i].boundingRect().y() + polygons[i].boundingRect().height() > maximumY) {
+            maximumY = polygons[i].boundingRect().y() + polygons[i].boundingRect().height() + edgeMargin;
         }
     }
-    for (int i = 0; i < localBigAmtOfPolygons; ++i) {
-        QPainterPath path;
-        path.addPolygon(bigPolygons[i]);
-        painter->fillPath(path, *brush);
-        painter->drawPolygon(bigPolygons[i]);
-        if(bigPolygons[i].boundingRect().x() < minimumX) {
-            minimumX = bigPolygons[i].boundingRect().x() - edgeMargin;
-        }
-        else if(bigPolygons[i].boundingRect().x() + bigPolygons[i].boundingRect().width() > maximumX) {
-            maximumX = bigPolygons[i].boundingRect().x() + bigPolygons[i].boundingRect().width() + edgeMargin;
-        }
-        if(bigPolygons[i].boundingRect().y() < minimumY) {
-            minimumY = bigPolygons[i].boundingRect().y() - edgeMargin;
-        }
-        else if(bigPolygons[i].boundingRect().y() + bigPolygons[i].boundingRect().height() > maximumY) {
-            maximumY = bigPolygons[i].boundingRect().y() + bigPolygons[i].boundingRect().height() + edgeMargin;
-        }
-    }
-    //brush->setColor(Qt::white);
-    //painter->setPen(QPen(Qt::white));
-    for (int i = 0; i < localSmallAmtOfPolygons; ++i) {
-        QPainterPath path;
-        path.addPolygon(smallPolygons[i]);
-        painter->fillPath(path, *brush);
-        painter->drawPolygon(smallPolygons[i]);
-        if(smallPolygons[i].boundingRect().x() < minimumX) {
-            minimumX = smallPolygons[i].boundingRect().x() - edgeMargin;
-        }
-        else if(smallPolygons[i].boundingRect().x() + smallPolygons[i].boundingRect().width() > maximumX) {
-            maximumX = smallPolygons[i].boundingRect().x() + smallPolygons[i].boundingRect().width() + edgeMargin;
-        }
-        if(smallPolygons[i].boundingRect().y() < minimumY) {
-            minimumY = smallPolygons[i].boundingRect().y() - edgeMargin;
-        }
-        else if(smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height() > maximumY) {
-            maximumY = smallPolygons[i].boundingRect().y() + smallPolygons[i].boundingRect().height() + edgeMargin;
-        }
-    }
-    //brush->setColor(Qt::black);
-    //painter->setPen(Qt::black);
     localBoundingRect = QRectF(minimumX, minimumY, maximumX-minimumX, maximumY-minimumY);
 }
 
@@ -147,13 +91,13 @@ QPoint GeneratedShape::randomPositionInTriangle(QPoint A, QPoint B, QPoint C) {
 
     return QPoint(
                 qFloor(
-                    (1 - sqrt(r1)) * A.x() +
-                    (sqrt(r1) * (1 - r2)) * B.x() +
-                    (sqrt(r1) * r2) * C.x()),
+                    (1 - sqrt(r1)) * A.x()             +
+                    (sqrt(r1)      * (1 - r2)) * B.x() +
+                    (sqrt(r1)      * r2)       * C.x()),
                 qFloor(
-                    (1 - sqrt(r1)) * A.y() +
-                    (sqrt(r1) * (1 - r2)) * B.y() +
-                    (sqrt(r1) * r2) * C.y())
+                    (1 - sqrt(r1)) * A.y()             +
+                    (sqrt(r1)      * (1 - r2)) * B.y() +
+                    (sqrt(r1)      * r2)       * C.y())
                 );
 }
 
@@ -204,34 +148,25 @@ QList<QPoint> GeneratedShape::generateSplines(QList<QPoint> points, int numSplin
 }
 
 QPoint GeneratedShape::pointOnCurve(QPoint p0, QPoint p1, QPoint p2, QPoint p3, float t) {
-    QPoint spline;
-
     float t2 = t * t;
     float t3 = t2 * t;
 
-    spline.setX(qRound(0.5f * ((2.0f * p1.x()) +
-    (-p0.x() + p2.x()) * t +
-    (2.0f * p0.x() - 5.0f * p1.x() + 4 * p2.x() - p3.x()) * t2 +
-    (-p0.x() + 3.0f * p1.x() - 3.0f * p2.x() + p3.x()) * t3)));
-
-    spline.setY(qRound(0.5f * ((2.0f * p1.y()) +
-    (-p0.y() + p2.y()) * t +
-    (2.0f * p0.y() - 5.0f * p1.y() + 4 * p2.y() - p3.y()) * t2 +
-    (-p0.y() + 3.0f * p1.y() - 3.0f * p2.y() + p3.y()) * t3)));
-
-    return spline;
-}
-
-double GeneratedShape::clip(double number, double max, double min) {
-    if(min > max) return number;
-    else if(number < min) return min;
-    else if(number > max) return max;
-    else return number;
-}
-
-double GeneratedShape::randomDouble(double a, double b) {
-    double random = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
-    return a + (random * (b - a));
+    return QPoint(
+                qRound(
+                    0.5f     * ((2.0f  * p1.x())          +
+                    (-p0.x() + p2.x()) * t                +
+                    (2.0f    * p0.x()  - 5.0f    * p1.x() +
+                    4        * p2.x()  - p3.x()) * t2     +
+                    (-p0.x() + 3.0f    * p1.x()  - 3.0f   *
+                     p2.x()  + p3.x()) * t3)),
+                qRound(
+                    0.5f     * ((2.0f  * p1.y())          +
+                    (-p0.y() + p2.y()) * t                +
+                    (2.0f    * p0.y()  - 5.0f    * p1.y() +
+                    4        * p2.y()  - p3.y()) * t2     +
+                    (-p0.y() + 3.0f    * p1.y()  - 3.0f   *
+                     p2.y() + p3.y()) * t3))
+                );
 }
 
 void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
@@ -249,7 +184,7 @@ void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     connect(clockwise, &QAction::triggered, this, [=]() { rotateShape(90); });
     connect(counterClockwise, &QAction::triggered, this, [=]() { rotateShape(-90); });
     connect(horizontalFlip, &QAction::triggered, this, [=]() {
-        qreal localm31 = boundingRect().width() * scale();
+        double localm31 = boundingRect().width() * scale();
         if(transform().m31() > 0) localm31 = 0;
         setTransform(QTransform(
                          -transform().m11(),
@@ -264,7 +199,7 @@ void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
                          ));
     });
     connect(verticalFlip, &QAction::triggered, this, [=]() {
-        qreal localm32 = boundingRect().height() * scale();
+        double localm32 = boundingRect().height() * scale();
         if(transform().m32() > 0) localm32 = 0;
         setTransform(QTransform(
                          transform().m11(),
