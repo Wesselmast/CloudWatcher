@@ -11,6 +11,7 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 #include <QList>
+#include <memory>
 
 class GeneratedShape : public QObject, public QGraphicsItem {
 public:
@@ -18,10 +19,13 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     void generate();
+    void setGenerator(QRandomGenerator *generator);
     ~GeneratedShape();
 public:
     QPen* pen;
     QBrush* brush;
+    const int width = 350;
+    const int height = 500;
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 private:
@@ -30,18 +34,22 @@ private:
     QList<QPoint>generateSplines(QList<QPoint> points, int numSplines);
     QPoint pointOnCurve(QPoint p0, QPoint p1, QPoint p2, QPoint p3, float t);
 private:
+    QRandomGenerator *generator;
     QList<QPolygon> polygons;
     QRectF localBoundingRect;
-    int localAmtOfPolygons = 5;
-
-    const int width = 350;
-    const int height = 500;
     const bool drawSizePolygon = false;
+
+    int localAmtOfPolygons = 5;
+    int amtOfNegativePolygons = 4;
+    int amtOfSecondaryPolygons = 5;
+    int amtOfPrimaryPolygons = 5;
 
     bool firstTime = true;
     bool canGenerate = true;
-private slots:
+public slots:
     void rotateShape(int amt);
+    void doHorizontalFlip();
+    void doVerticalFlip();
 };
 
 #endif // GENERATEDSHAPE_H

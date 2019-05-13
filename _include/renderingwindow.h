@@ -29,7 +29,9 @@ private:
     void setGlobalsToSliders();
     void generateShape(GeneratedShape *shapeCollection, int size, int amtOfShapes, double wonkyness, double spikeyness, int complexity);
     void lineThickness(GeneratedShape *shapeCollection, int value, int amtOfShapes);
+    void keyPressEvent(QKeyEvent *key);
 private:
+    QRandomGenerator *generator;
     Ui::RenderingWindow *ui;
     QGraphicsScene *scene;
     GeneratedShape *shape;
@@ -38,26 +40,16 @@ private slots:
     void generateShapeButton();
     void exportShapeButton();
     void randomizeShapeButton();
-    void on_LineThickSlider_valueChanged(int value);
-    void on_AggresivenessSmallSlider_valueChanged(int value);
-    void on_ComplexitySmallSlider_valueChanged(int value);
-    void on_AggresivenessMediumSlider_valueChanged(int value);
-    void on_ComplexityMediumSlider_valueChanged(int value);
-    void on_AggresivenessBigSlider_valueChanged(int value);
-    void on_ComplexityBigSlider_valueChanged(int value);
-    void on_CurvynessSmallSlider_valueChanged(int value);
-    void on_CurvynessMediumlSlider_valueChanged(int value);
-    void on_CurvynessBigSlider_valueChanged(int value);
-    void on_OuterMarginSlider_valueChanged(int value);
-    void on_CenterOfBalanceSlider_valueChanged(int value);
-    void on_AmountOfSmallShapes_valueChanged(int arg1);
-    void on_AmountOfMediumShapes_valueChanged(int arg1);
-    void on_AmountOfBigShapes_valueChanged(int arg1);
-    void on_RadiusSmallSlider_valueChanged(int value);
-    void on_RadiusMediumSlider_valueChanged(int value);
-    void on_RadiusBigSlider_valueChanged(int value);
-    void on_VerticalDiagonalSlider_valueChanged(int value);
     void on_presetDropdown_currentIndexChanged(int index);
+    void on_primaryComplexitySlider_valueChanged(int value);
+    void on_primaryEdgeSlider_valueChanged(int value);
+    void on_primaryRadiusSlider_valueChanged(int value);
+    void on_secondaryComplexitySlider_valueChanged(int value);
+    void on_secondaryEdgeSlider_valueChanged(int value);
+    void on_secondaryRadiusSlider_valueChanged(int value);
+    void on_negativeComplexitySlider_valueChanged(int value);
+    void on_negativeEdgeSlider_valueChanged(int value);
+    void on_negativeRadiusSlider_valueChanged(int value);
 };
 
 #endif // RENDERINGWINDOW_H

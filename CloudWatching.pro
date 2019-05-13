@@ -39,8 +39,6 @@ HEADERS += \
 FORMS += \
         _form/renderingwindow.ui
 
-UI_DIR += \_include
-
 MOC_DIR += _generated
 OBJECTS_DIR += _generated
 
@@ -49,3 +47,6 @@ OBJECTS_DIR += _generated
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    _form/resources.qrc

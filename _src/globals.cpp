@@ -1,24 +1,17 @@
 #include "_include/globals.h"
 
+double primarySpikeyness = 0.2;
+double secondarySpikeyness = 0.2;
+double negativeSpikeyness = 0.2;
 
-int amtOfSmallPolygons = 5;
-int amtOfMediumPolygons = 5;
-int amtOfBigPolygons = 5;
+int primaryComplexity = 10;
+int secondaryComplexity = 10;
+int negativeComplexity = 10;
 
-double spikeynessSmall = 0;
-int complexitySmall = 0;
-double spikeynessMedium = 0;
-int complexityMedium = 0;
-double spikeynessBig = 0;
-int complexityBig = 0;
-int margin = 0;
-int pointOfBalance = 0;
-int curvynessSmall = 0;
-int curvynessMedium = 0;
-int curvynessBig = 0;
-int radiusSmall = 0;
-int radiusMedium = 0;
-int radiusBig = 0;
-int angularness = 0;
+int primaryCurvyness = 5;
+int secondaryCurvyness = 5;
+int negativeCurvyness = 5;
 
-
+int primaryRadius = 15;
+int secondaryRadius = 40;
+int negativeRadius = 70;
