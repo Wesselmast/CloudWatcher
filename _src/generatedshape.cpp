@@ -24,15 +24,18 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         amtOfSecondaryPolygons = qRound(randomDouble(5, 8));
         amtOfNegativePolygons = qRound(randomDouble(3, 5));
 
-        int margin = 100;
-        int localPointOfBalance = qFloor(randomDouble(height - margin, margin));
-        int mappedAngularness = qFloor(randomDouble(0, width - (margin * 2)));
-        int localAngularness = (rand() % 2 + 1) == 1 ? width/2 - mappedAngularness/2 : width/2 + mappedAngularness/2;
+        int halfWidth = width/2;
+        int halfHeight = height/2;
 
-        QPoint A(localAngularness, margin);
-        QPoint B(width - margin, localPointOfBalance);
-        QPoint C(localAngularness, height - margin);
-        QPoint D(margin, localPointOfBalance);
+        int margin = 50;
+        int localPointOfBalance = qFloor(randomDouble(height - margin, margin));
+        int mappedAngularness = qFloor(randomDouble(0, width - (margin * 2)) * 0.5);
+        int localAngularness = (rand() % 2 + 1) == 1 ? halfWidth - mappedAngularness : halfWidth + mappedAngularness;
+
+        QPoint A(halfWidth + localAngularness, halfHeight + margin);
+        QPoint B(halfWidth + width - margin,   halfHeight + localPointOfBalance);
+        QPoint C(halfWidth + localAngularness, halfHeight + height - margin);
+        QPoint D(halfWidth + margin,           halfHeight + localPointOfBalance);
 
         if(drawSizePolygon) {
             QPolygon poly;
