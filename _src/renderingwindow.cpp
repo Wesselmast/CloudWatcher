@@ -5,10 +5,7 @@ RenderingWindow::RenderingWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::RenderingWindow)
 {
-    //uint seed = rand() % 99999;
-    //qsrand(seed);
-    //generator->seed(seed);
-   // shape->setGenerator(generator);
+        seed = rand() % SHRT_MAX;
 
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
@@ -62,10 +59,7 @@ void RenderingWindow::randomizeShapeButton() {
 }
 
 void RenderingWindow::generateShapeButton() {
-//    uint seed = rand() % 99999;
-//    qsrand(seed);
-//    generator->seed(seed);
-//    shape->setGenerator(generator);
+    seed = rand() % SHRT_MAX;
     scene->update();
     shape->transform().reset();
     shape->setRotation(0);
@@ -134,8 +128,8 @@ RenderingWindow::~RenderingWindow() {
 }
 
 void RenderingWindow::on_primaryComplexitySlider_valueChanged(int value) {
-    primaryComplexity = qFloor(map(value, 0, 99, 7, 25));
-    primarySpikeyness = map(value, 0, 99, 10, 70) * .005;
+    primaryComplexity = qFloor(map(value, 0, 99, 7, 15));
+    primarySpikeyness = map(value, 0, 99, 50, 80) * .006;
     generateShapeButton();
 }
 
@@ -145,13 +139,13 @@ void RenderingWindow::on_primaryEdgeSlider_valueChanged(int value) {
 }
 
 void RenderingWindow::on_primaryRadiusSlider_valueChanged(int value) {
-    primaryRadius = qFloor(map(value, 0, 99, 40, 80));
+    primaryRadius = qFloor(map(value, 0, 99, 50, 100));
     generateShapeButton();
 }
 
 void RenderingWindow::on_secondaryComplexitySlider_valueChanged(int value) {
-    secondaryComplexity = qFloor(map(value, 0, 99, 7, 25));
-    secondarySpikeyness = map(value, 0, 99, 10, 70) * .005;
+    secondaryComplexity = qFloor(map(value, 0, 99, 7, 15));
+    secondarySpikeyness = map(value, 0, 99, 50, 80) * .006;
     generateShapeButton();
 }
 
@@ -161,13 +155,13 @@ void RenderingWindow::on_secondaryEdgeSlider_valueChanged(int value) {
 }
 
 void RenderingWindow::on_secondaryRadiusSlider_valueChanged(int value) {
-    secondaryRadius = qFloor(map(value, 0, 99, 40, 80));
+    secondaryRadius = qFloor(map(value, 0, 99, 50, 100));
     generateShapeButton();
 }
 
 void RenderingWindow::on_negativeComplexitySlider_valueChanged(int value) {
-    negativeComplexity = qFloor(map(value, 0, 99, 7, 25));
-    negativeSpikeyness = map(value, 0, 99, 10, 70) * .005;
+    negativeComplexity = qFloor(map(value, 0, 99, 7, 15));
+    negativeSpikeyness = map(value, 0, 99, 50, 80) * .006;
     generateShapeButton();
 }
 

@@ -22,7 +22,7 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
         amtOfPrimaryPolygons = qRound(randomDouble(5, 8));
         amtOfSecondaryPolygons = qRound(randomDouble(5, 8));
-        amtOfNegativePolygons = qRound(randomDouble(3, 5));
+        amtOfNegativePolygons = 3;
 
         int halfWidth = width/2;
         int halfHeight = height/2;
@@ -30,7 +30,7 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         int margin = 50;
         int localPointOfBalance = qFloor(randomDouble(height - margin, margin));
         int mappedAngularness = qFloor(randomDouble(0, width - (margin * 2)) * 0.5);
-        int localAngularness = (rand() % 2 + 1) == 1 ? halfWidth - mappedAngularness : halfWidth + mappedAngularness;
+        int localAngularness = (seed % 2 + 1) == 1 ? halfWidth - mappedAngularness : halfWidth + mappedAngularness;
 
         QPoint A(halfWidth + localAngularness, halfHeight + margin);
         QPoint B(halfWidth + width - margin,   halfHeight + localPointOfBalance);
@@ -48,15 +48,15 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         }
 
         for (int i = 0; i < amtOfPrimaryPolygons; ++i) {
-            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            QPoint point = (seed % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
             polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), primaryRadius, primarySpikeyness, primaryComplexity, primaryCurvyness)));
         }
         for (int i = 0; i < amtOfSecondaryPolygons; ++i) {
-            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            QPoint point = (seed % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
             polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), secondaryRadius, secondarySpikeyness, secondaryComplexity, secondaryCurvyness)));
         }
         for (int i = 0; i < amtOfNegativePolygons; ++i) {
-            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            QPoint point = (seed % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
             polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), negativeRadius, negativeSpikeyness, negativeComplexity, negativeCurvyness)));
         }
 
@@ -121,9 +121,21 @@ void GeneratedShape::generate() {
     update();
 }
 
-void GeneratedShape::setGenerator(QRandomGenerator *generator) {
-    this->generator = generator;
-}
+//void GeneratedShape::pseuGenerate() {
+//    polygons.clear();
+//    for (int i = 0; i < amtOfPrimaryPolygons; ++i) {
+//        polygons.push_back(QPolygon(generatePolygon(points[i].x(), points[i].y(), primaryRadius, primarySpikeyness, primaryComplexity, primaryCurvyness)));
+//    }
+//    for (int i = 0; i < amtOfSecondaryPolygons; ++i) {
+
+//        GA VERDER MET DIT
+
+//        polygons.push_back(QPolygon(generatePolygon(points[amtOfPrimaryPolygons-1 + i].x(), point.y(), secondaryRadius, secondarySpikeyness, secondaryComplexity, secondaryCurvyness)));
+//    }
+//    for (int i = 0; i < amtOfNegativePolygons; ++i) {
+//        polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), negativeRadius, negativeSpikeyness, negativeComplexity, negativeCurvyness)));
+//    }
+//}
 
 QPolygon GeneratedShape::generatePolygon(int xPos, int yPos, double radius, double spikeyness, int numVerts, int numSplines) {
     spikeyness = clip(spikeyness, 0, 1) * radius;

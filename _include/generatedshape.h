@@ -19,7 +19,7 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     void generate();
-    void setGenerator(QRandomGenerator *generator);
+    //void pseuGenerate();
     ~GeneratedShape();
 public:
     QPen* pen;
@@ -36,6 +36,7 @@ private:
 private:
     QRandomGenerator *generator;
     QList<QPolygon> polygons;
+    QList<QPoint> points;
     QRectF localBoundingRect;
     const bool drawSizePolygon = false;
 
