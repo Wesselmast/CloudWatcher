@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui quickwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,6 +31,7 @@ SOURCES += \
         _src/globals.cpp
 
 HEADERS += \
+        _include/backend.h \
         _include/math.h \
         _include/renderingwindow.h \
         _include/generatedshape.h \

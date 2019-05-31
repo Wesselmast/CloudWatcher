@@ -24,8 +24,8 @@ public:
 public:
     QPen* pen;
     QBrush* brush;
-    const int width = 400;
-    const int height = 400;
+    const unsigned short width = 400;
+    const unsigned short height = 400;
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 private:

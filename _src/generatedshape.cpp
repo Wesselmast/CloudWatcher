@@ -95,8 +95,7 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
             maximumY = polygons[i].boundingRect().y() + polygons[i].boundingRect().height();
         }
     }
-    int m = 10;
-    localBoundingRect = QRectF(minimumX - m, minimumY - m, m + maximumX-minimumX, m + maximumY-minimumY);
+    localBoundingRect = QRectF(minimumX, minimumY, maximumX-minimumX, maximumY-minimumY);
 }
 
 QPoint GeneratedShape::randomPositionInTriangle(QPoint A, QPoint B, QPoint C) {

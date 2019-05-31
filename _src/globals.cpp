@@ -1,6 +1,6 @@
 #include "_include/globals.h"
 
-unsigned int seed = 0;
+int seed = 0;
 
 double primarySpikeyness = 0.2;
 double secondarySpikeyness = 0.2;

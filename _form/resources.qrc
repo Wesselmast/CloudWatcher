@@ -1,5 +1,12 @@
 <RCC>
     <qresource prefix="/CloudUI">
         <file>PV-Slider1-Test.png</file>
+        <file>PV-Slider2-Test.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>UIForm.ui.qml</file>
+        <file>PV-Slider1-Test.png</file>
+        <file>PV-Slider2-Test.png</file>
     </qresource>
 </RCC>
