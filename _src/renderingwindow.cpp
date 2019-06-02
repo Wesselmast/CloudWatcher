@@ -2,8 +2,10 @@
 #include "ui_renderingwindow.h"
 
 RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
-    qmlView = new QQuickWidget();
     qmlRegisterSingletonType<BackEnd>("cloudwatching.backend", 1, 0, "BackEnd", &BackEnd::create);
+    exportDir = QDir(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation) + "/CloudWatcher");
+
+    qmlView = new QQuickWidget();
     qmlView->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
 
     graphicsView = new QGraphicsView();
@@ -17,22 +19,27 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
     shape = new GeneratedShape();
     scene->addItem(shape);
 
+    QQuickWidget* shortcuts = new QQuickWidget();
+    shortcuts->setSource(QUrl(QStringLiteral("qrc:/shortcuts.qml")));
+    shortcuts->setMinimumSize(225, 1080);
+
     QHBoxLayout* layout = new QHBoxLayout(this);
     this->setStyleSheet("background-color: #292929;");
     graphicsView->setStyleSheet("background-color: white;");
-    qmlView->setMinimumSize(225, 1280);
+    qmlView->setMinimumSize(225, 1080);
     graphicsView->setAlignment(Qt::AlignCenter);
 
     layout->addWidget(qmlView);
     layout->addStretch();
     layout->addWidget(graphicsView);
     layout->addStretch();
+    layout->addWidget(shortcuts);
 
     this->showMaximized();
     seed = rand();
 
     connect(&BackEnd::instance(), SIGNAL(generate_shape()), this, SLOT(generateShapeButton()));
-    connect(&BackEnd::instance(), SIGNAL(export_shape()), this, SLOT(exportShapeButton()));
+    connect(&BackEnd::instance(), &BackEnd::export_shape, this, [=]() { exportShape(); });
     generateShapeButton();
 }
 
@@ -43,7 +50,11 @@ void RenderingWindow::keyPressEvent(QKeyEvent *key) {
         case(Qt::Key::Key_Comma): shape->rotateShape(-90); break;
         case(Qt::Key::Key_Period): shape->rotateShape(90); break;
         case(Qt::Key::Key_Space): generateShapeButton(); break;
-        case(Qt::Key::Key_R): /* TODO: Callback to QML to randomize */break;
+    }
+    if(key->modifiers() & Qt::ControlModifier) {
+        if(key->key() == Qt::Key::Key_S) {
+            exportShape(true);
+        }
     }
 }
 
@@ -55,7 +66,7 @@ void RenderingWindow::generateShapeButton() {
     shape->generate();
 }
 
-void RenderingWindow::exportShapeButton() {
+void RenderingWindow::exportShape(bool quickexport) {
     QImage image = graphicsView->grab().toImage();
     image.fill(Qt::transparent);
     for(int x = 0; x < image.width(); ++x) {
@@ -67,14 +78,29 @@ void RenderingWindow::exportShapeButton() {
     QPainter painter(&image);
     QStyleOptionGraphicsItem opt;
     shape->paint(&painter, &opt);
-    QString path = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                QDir::currentPath(),
-                                                tr("CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
-    if(path.isNull()) return;
+
+    if(!exportDir.exists()){
+        exportDir.mkpath(".");
+    }
+
+    QString path;
+    if(!quickexport) {
+        path = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                    exportDir.path(),
+                                                    tr("CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
+        if(path.isNull()) return;
+    }
+    else {
+        QString num = QString::number(++quickExportNumber);
+        path = exportDir.path() + "/Silhouette_" + num + ".png";
+    }
     image.save(path);
 }
 
 RenderingWindow::~RenderingWindow() {
+    if(exportDir.isEmpty()) {
+        exportDir.removeRecursively();
+    }
     delete shape;
     delete scene;
 }

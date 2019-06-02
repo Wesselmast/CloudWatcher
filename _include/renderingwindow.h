@@ -15,6 +15,7 @@
 #include <QBoxLayout>
 #include <QQmlEngine>
 #include <QQmlContext>
+#include <QDesktopServices>
 #include <QLabel>
 #include "backend.h"
 #include "_include/globals.h"
@@ -27,6 +28,7 @@ public:
     ~RenderingWindow();
 private:
     void keyPressEvent(QKeyEvent *key);
+    void exportShape(bool quickexport = false);
 private:
     QQuickWidget *qmlView;
     QRandomGenerator *generator;
@@ -34,11 +36,14 @@ private:
     GeneratedShape *shape;
     QGraphicsView *graphicsView;
 
+    QDir exportDir;
+
     const unsigned short width = 900;
     const unsigned short height = 900;
+
+    int quickExportNumber = 0;
 private slots:
     void generateShapeButton();
-    void exportShapeButton();
 };
 
 #endif // RENDERINGWINDOW_H

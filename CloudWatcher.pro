@@ -8,7 +8,7 @@ QT       += core gui quickwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = CloudWatching
+TARGET = CloudWatcher
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use

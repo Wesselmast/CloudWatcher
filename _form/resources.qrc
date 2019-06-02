@@ -22,5 +22,6 @@
         <file>images/UI-Slider-Groove.png</file>
         <file>images/UI-Slider-Handle.png</file>
         <file>images/UI-Divider.png</file>
+        <file>shortcuts.qml</file>
     </qresource>
 </RCC>

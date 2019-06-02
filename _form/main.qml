@@ -78,17 +78,14 @@ Rectangle {
     ColumnLayout {
         x: (root.width - uiWidth)/2
 
-        //Sliders
-        //        ComboBox {
-        //            model: ["Default","",""]
-        //        }
-        spacing: 2
+        spacing: 3
 
         Item {
             width: 1
             height: 5
         }
 
+        //Sliders
         Label {
             color: "#c1c1c1"
             font.pointSize: 9.5
@@ -160,7 +157,7 @@ Rectangle {
             height: 5
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "radius"
@@ -199,7 +196,7 @@ Rectangle {
             }
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "complexity"
@@ -237,7 +234,7 @@ Rectangle {
             }
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "curvyness"
@@ -305,7 +302,7 @@ Rectangle {
             height: 5
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "radius"
@@ -344,7 +341,7 @@ Rectangle {
             }
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "complexity"
@@ -382,7 +379,7 @@ Rectangle {
             }
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "curvyness"
@@ -450,7 +447,7 @@ Rectangle {
             height: 5
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "radius"
@@ -489,7 +486,7 @@ Rectangle {
             }
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "complexity"
@@ -527,7 +524,7 @@ Rectangle {
             }
         }
         Label {
-            font.pointSize: 10
+            font.pointSize: 8
             color: "#eeeeed"
             font.family: "Montserrat Medium"
             text: "curvyness"
@@ -587,7 +584,7 @@ Rectangle {
 
         Item {
             width: 1
-            height: 5
+            height: 10
         }
 
         Button {
@@ -602,7 +599,7 @@ Rectangle {
                     font.pointSize: 8
                     renderType: Text.NativeRendering
                     verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
+                    x: 18
                     font.family: "Montserrat ExtraBold"
                     text: "GENERATE SHAPE"
                 }
@@ -629,7 +626,7 @@ Rectangle {
                     font.pointSize: 8
                     renderType: Text.NativeRendering
                     verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
+                    x: 18
                     font.family: "Montserrat SemiBold"
                     text: "export shape..."
                 }
