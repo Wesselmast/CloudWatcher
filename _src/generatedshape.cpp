@@ -205,6 +205,7 @@ void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     QAction* counterClockwise = new QAction("90° CCW");
     QAction* horizontalFlip = new QAction("Flip Horizontal");
     QAction* verticalFlip = new QAction("Flip Vertical");
+
     rotateCanvas->addAction(clockwise);
     rotateCanvas->addAction(counterClockwise);
     rotateCanvas->addSeparator();
@@ -232,7 +233,7 @@ void GeneratedShape::rotateShape(int amt) {
 }
 
 void GeneratedShape::doHorizontalFlip() {
-    double localm31 = boundingRect().width() * scale();
+    double localm31 = width * 2 * scale();
     if(transform().m31() > 0) localm31 = 0;
     setTransform(QTransform(
                      -transform().m11(),
@@ -248,7 +249,7 @@ void GeneratedShape::doHorizontalFlip() {
 }
 
 void GeneratedShape::doVerticalFlip() {
-    double localm32 = boundingRect().height() * scale();
+    double localm32 = height * 2 * scale();
     if(transform().m32() > 0) localm32 = 0;
     setTransform(QTransform(
                      transform().m11(),
