@@ -29,8 +29,6 @@ Rectangle {
         negativeSpikeyness.value = Math.random()
         negativeCurvyness.value = Math.random()
     }
-    focus: true
-    Keys.onPressed: { if(event.key === Qt.Key_R) randomize() }
 
     Image {
         id: sliderVlak
@@ -184,7 +182,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.primaryRadius = value
                 }
@@ -222,7 +220,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.primarySpikeyness = value
                 }
@@ -261,7 +259,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.primaryCurvyness = value
                 }
@@ -329,7 +327,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.secondaryRadius = value
                 }
@@ -367,7 +365,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.secondarySpikeyness = value
                 }
@@ -406,7 +404,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.secondaryCurvyness = value
                 }
@@ -474,7 +472,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.negativeRadius = value
                 }
@@ -512,7 +510,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.negativeSpikeyness = value
                 }
@@ -551,7 +549,7 @@ Rectangle {
                         sourceSize.height: sliderHandleSize
                     }
                 }
-                value: .5
+                value: Math.random()
                 onValueChanged: {
                     BackEnd.negativeCurvyness = value
                 }

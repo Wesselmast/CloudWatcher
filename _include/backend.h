@@ -11,6 +11,7 @@
 
 class BackEnd : public QObject {
     Q_OBJECT
+
     Q_PROPERTY(double primaryRadius READ get_primary_radius WRITE set_primary_radius)
     Q_PROPERTY(double primarySpikeyness READ get_primary_spikeyness WRITE set_primary_spikeyness)
     Q_PROPERTY(double primaryCurvyness READ get_primary_curvyness WRITE set_primary_curvyness)

@@ -24,8 +24,13 @@ public:
 public:
     QPen* pen;
     QBrush* brush;
+
     const unsigned short width = 450;
     const unsigned short height = 450;
+public slots:
+    void rotateShape(int amt);
+    void doHorizontalFlip();
+    void doVerticalFlip();
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 private:
@@ -47,10 +52,6 @@ private:
 
     bool firstTime = true;
     bool canGenerate = true;
-public slots:
-    void rotateShape(int amt);
-    void doHorizontalFlip();
-    void doVerticalFlip();
 };
 
 #endif // GENERATEDSHAPE_H

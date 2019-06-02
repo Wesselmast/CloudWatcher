@@ -50,6 +50,13 @@ void RenderingWindow::keyPressEvent(QKeyEvent *key) {
         case(Qt::Key::Key_Comma): shape->rotateShape(-90); break;
         case(Qt::Key::Key_Period): shape->rotateShape(90); break;
         case(Qt::Key::Key_Space): generateShapeButton(); break;
+        case(Qt::Key::Key_R): {
+            QQmlComponent component(qmlView->engine(), qmlView->source());
+            QObject *qmlObj = component.create();
+            QMetaObject::invokeMethod(qmlObj, "randomize");
+            delete qmlObj;
+            break;
+        }
     }
     if(key->modifiers() & Qt::ControlModifier) {
         if(key->key() == Qt::Key::Key_S) {
@@ -101,6 +108,8 @@ RenderingWindow::~RenderingWindow() {
     if(exportDir.isEmpty()) {
         exportDir.removeRecursively();
     }
+    delete graphicsView;
+    delete qmlView;
     delete shape;
     delete scene;
 }

@@ -15,6 +15,7 @@
 #include <QBoxLayout>
 #include <QQmlEngine>
 #include <QQmlContext>
+#include <QQmlComponent>
 #include <QDesktopServices>
 #include <QLabel>
 #include "backend.h"
@@ -31,7 +32,6 @@ private:
     void exportShape(bool quickexport = false);
 private:
     QQuickWidget *qmlView;
-    QRandomGenerator *generator;
     QGraphicsScene *scene;
     GeneratedShape *shape;
     QGraphicsView *graphicsView;
