@@ -20,16 +20,19 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
     QHBoxLayout* layout = new QHBoxLayout(this);
     this->setStyleSheet("background-color: #292929;");
     graphicsView->setStyleSheet("background-color: white;");
-    layout->addWidget(qmlView);
-    layout->insertStretch(-1, 1);
-    layout->addWidget(graphicsView);
+    qmlView->setMinimumSize(225, 1280);
+    graphicsView->setAlignment(Qt::AlignCenter);
 
-    this->show();
+    layout->addWidget(qmlView);
+    layout->addStretch();
+    layout->addWidget(graphicsView);
+    layout->addStretch();
+
+    this->showMaximized();
     seed = rand();
 
     connect(&BackEnd::instance(), SIGNAL(generate_shape()), this, SLOT(generateShapeButton()));
-//    connect(ui->exportButton, SIGNAL(released()), this, SLOT(exportShapeButton()));
-//    connect(ui->randomizeButton, SIGNAL(released()), this, SLOT(randomizeShapeButton()));
+    connect(&BackEnd::instance(), SIGNAL(export_shape()), this, SLOT(exportShapeButton()));
     generateShapeButton();
 }
 

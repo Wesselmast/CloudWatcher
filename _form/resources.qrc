@@ -1,12 +1,26 @@
 <RCC>
-    <qresource prefix="/CloudUI">
-        <file>PV-Slider1-Test.png</file>
-        <file>PV-Slider2-Test.png</file>
-    </qresource>
     <qresource prefix="/">
         <file>main.qml</file>
         <file>UIForm.ui.qml</file>
-        <file>PV-Slider1-Test.png</file>
-        <file>PV-Slider2-Test.png</file>
+        <file>images/UI-Canvas-Button2.png</file>
+        <file>images/UI-Canvas-Button3.png</file>
+        <file>images/UI-Canvas-Vlak.png</file>
+        <file>images/UI-complexity-1.png</file>
+        <file>images/UI-complexity-2.png</file>
+        <file>images/UI-curvyness-1.png</file>
+        <file>images/UI-curvyness-2.png</file>
+        <file>images/UI-Negative-Icon.png</file>
+        <file>images/UI-Negative-Vlak.png</file>
+        <file>images/UI-Primary-Icon.png</file>
+        <file>images/UI-Primary-Vlak.png</file>
+        <file>images/UI-radius-1.png</file>
+        <file>images/UI-radius-2.png</file>
+        <file>images/UI-Secondary-Icon.png</file>
+        <file>images/UI-Secondary-Vlak.png</file>
+        <file>images/UI-Sliders-Button1.png</file>
+        <file>images/UI-Sliders-Vlak.png</file>
+        <file>images/UI-Slider-Groove.png</file>
+        <file>images/UI-Slider-Handle.png</file>
+        <file>images/UI-Divider.png</file>
     </qresource>
 </RCC>

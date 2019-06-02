@@ -2,8 +2,8 @@
 #include <QDebug>
 
 GeneratedShape::GeneratedShape() {
-    pen = new QPen(Qt::black);
-    brush = new QBrush(Qt::black);
+    pen = new QPen("#292929");
+    brush = new QBrush("#292929");
     generator = QRandomGenerator::global();
     localBoundingRect = QRectF(0, 0, width, height);
     canGenerate = false;

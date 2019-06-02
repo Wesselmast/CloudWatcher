@@ -34,8 +34,8 @@ private:
     GeneratedShape *shape;
     QGraphicsView *graphicsView;
 
-    const unsigned short width = 800;
-    const unsigned short height = 800;
+    const unsigned short width = 900;
+    const unsigned short height = 900;
 private slots:
     void generateShapeButton();
     void exportShapeButton();

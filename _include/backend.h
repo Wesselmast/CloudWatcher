@@ -94,24 +94,14 @@ public:
     Q_INVOKABLE void generate() {
         emit generate_shape();
     }
+
+    Q_INVOKABLE void doExport() {
+        emit export_shape();
+
+    }
 signals:
     void generate_shape();
+    void export_shape();
 };
 
 #endif // BACKEND_H
-
-//void RenderingWindow::on_negativeComplexitySlider_valueChanged(int value) {
-//    negativeComplexity = qFloor(map(value, 0, 99, 7, 15));
-//    negativeSpikeyness = map(value, 0, 99, 50, 80) * .006;
-//    generateShapeButton();
-//}
-
-//void RenderingWindow::on_negativeEdgeSlider_valueChanged(int value) {
-//    negativeCurvyness = qFloor(map(value, 0, 99, 1, 10));
-//    generateShapeButton();
-//}
-
-//void RenderingWindow::on_negativeRadiusSlider_valueChanged(int value) {
-//    negativeRadius = qFloor(map(value, 0, 99, 30, 70));
-//    generateShapeButton();
-//}

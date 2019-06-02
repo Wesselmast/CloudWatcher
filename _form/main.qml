@@ -6,12 +6,13 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.12
 
 Rectangle {
-    property int uiWidth: 200
+    id: root
+    property int uiWidth: 175
     property int sliderHeight: 7
     property int sliderHandleSize: 16
 
     visible: true
-    width: uiWidth
+    width: uiWidth + 50
     height: 8000
     color: "#292929"
 
@@ -31,306 +32,610 @@ Rectangle {
     focus: true
     Keys.onPressed: { if(event.key === Qt.Key_R) randomize() }
 
+    Image {
+        id: sliderVlak
+        source: "images/UI-Sliders-Vlak"
+        sourceSize.width: root.width
+        width: root.width
+        height: 85
+    }
+
+    Image {
+        id: primaryVlak
+        y: sliderVlak.y + sliderVlak.height + 10
+        source: "images/UI-Primary-Vlak"
+        sourceSize.width: root.width
+        width: root.width
+        height: 250
+    }
+
+    Image {
+        id: secondaryVlak
+        y: primaryVlak.y + primaryVlak.height + 10
+        source: "images/UI-Primary-Vlak"
+        sourceSize.width: root.width
+        width: root.width
+        height: 250
+    }
+
+    Image {
+        id: negativeVlak
+        y: secondaryVlak.y + secondaryVlak.height + 10
+        source: "images/UI-Primary-Vlak"
+        sourceSize.width: root.width
+        width: root.width
+        height: 250
+    }
+
+    Image {
+        y: negativeVlak.y + negativeVlak.height + 10
+        source: "images/UI-Canvas-Vlak"
+        sourceSize.width: root.width
+        width: root.width
+        height: 150
+    }
+
     ColumnLayout {
-        UIForm {
+        x: (root.width - uiWidth)/2
+
+        //Sliders
+        //        ComboBox {
+        //            model: ["Default","",""]
+        //        }
+        spacing: 2
+
+        Item {
+            width: 1
+            height: 5
         }
 
-        spacing: 8
+        Label {
+            color: "#c1c1c1"
+            font.pointSize: 9.5
+            font.family: "Montserrat ExtraBold"
+            text: "SLIDERS"
+        }
 
-        //PRIMARY SHAPES
-        Label {
-            color: "white"
-            font.pointSize: 10
-            font.bold: true
-            font.family: "Verdana"
-            text: "Primary Shapes"
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Radius"
-        }
-        Slider {
-            id: primaryRadius
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.primaryRadius = value
-            }
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Complexity"
-        }
-        Slider {
-            id: primarySpikeyness
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.primarySpikeyness = value
-            }
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Curvyness"
-        }
-        Slider {
-            id: primaryCurvyness
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.primaryCurvyness = value
-            }
+        Image {
+            source: "images/UI-Divider"
+            sourceSize.width: uiWidth
+            width: uiWidth
         }
 
         Item {
             width: 1
-            height: 20
-        }
-
-        //SECONDARY SHAPES
-        Label {
-            color: "white"
-            font.pointSize: 10
-            font.bold: true
-            font.family: "Verdana"
-            text: "Secondary Shapes"
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Radius"
-        }
-        Slider {
-            id: secondaryRadius
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.secondaryRadius = value
-            }
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Complexity"
-        }
-        Slider {
-            id: secondarySpikeyness
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.secondarySpikeyness = value
-            }
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Curvyness"
-        }
-        Slider {
-            id: secondaryCurvyness
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.secondaryCurvyness = value
-            }
-        }
-
-        Item {
-            width: 1
-            height: 20
-        }
-
-        //NEGATIVE SHAPES
-        Label {
-            color: "white"
-            font.pointSize: 10
-            font.bold: true
-            font.family: "Verdana"
-            text: "Negative Shapes"
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Radius"
-        }
-        Slider {
-            id: negativeRadius
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.negativeRadius = value
-            }
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Complexity"
-        }
-        Slider {
-            id: negativeSpikeyness
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.negativeSpikeyness = value
-            }
-        }
-        Label {
-            color: "white"
-            font.family: "Roboto Light"
-            text: "Curvyness"
-        }
-        Slider {
-            id: negativeCurvyness
-            style: SliderStyle {
-                groove: Image {
-                    source: "PV-Slider1-Test.png"
-                    sourceSize.width: uiWidth
-                    width: uiWidth;
-                    height: sliderHeight;
-                }
-                handle: Image {
-                    source: "PV-Slider2-Test.png"
-                    sourceSize.width: sliderHandleSize;
-                    sourceSize.height: sliderHandleSize;
-                }
-            }
-            value: .5
-            onValueChanged: {
-                BackEnd.negativeCurvyness = value
-            }
-        }
-
-        Item {
-            width: 1
-            height: 20
+            height: 5
         }
 
         Button {
             style: ButtonStyle {
-                background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 25
-                    color: "#019bd8"
-                    radius: 4
+                background: Image {
+                    source: "images/UI-Sliders-Button1.png"
+                    sourceSize.width: uiWidth
+                    width: uiWidth;
+                }
+                label: Text {
+                    color: "#eeeeed"
+                    font.pointSize: 8
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Montserrat SemiBold"
+                    text: "randomize sliders"
                 }
             }
+
             text:  "<font color='#fefefe'>Randomize</font>"
             onClicked: {
                 randomize()
             }
         }
 
-        Button {
-            style: ButtonStyle {
-                background: Rectangle {
-                    implicitWidth: uiWidth
-                    implicitHeight: 25
-                    color: "#019bd8"
-                    radius: 4
+        Item {
+            width: 1
+            height: 35
+        }
+
+        //PRIMARY SHAPES
+        Image {
+            source: "images/UI-Primary-Icon.png"
+            sourceSize.width: 60
+        }
+
+        Label {
+            color: "#c1c1c1"
+            font.pointSize: 9.5
+            font.family: "Montserrat ExtraBold"
+            text: "PRIMARY SHAPES"
+        }
+
+        Image {
+            source: "images/UI-Divider"
+            sourceSize.width: uiWidth
+            width: uiWidth
+        }
+
+        Item {
+            width: 1
+            height: 5
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "radius"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-radius-1.png"
+                sourceSize.width: 12
+                y: 2
+            }
+            Slider {
+                id: primaryRadius
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.primaryRadius = value
                 }
             }
-            text:  "<font color='#fefefe'>Generate</font>"
+            Image {
+                source: "images/UI-radius-2.png"
+                sourceSize.width: 25
+                y: -4
+            }
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "complexity"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-complexity-1.png"
+                sourceSize.width: 18
+            }
+            Slider {
+                id: primarySpikeyness
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.primarySpikeyness = value
+                }
+            }
+            Image {
+                source: "images/UI-complexity-2.png"
+                sourceSize.width: 22
+                y: -1
+            }
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "curvyness"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-curvyness-1.png"
+                sourceSize.width: 16
+                y: -2
+            }
+            Slider {
+                id: primaryCurvyness
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.primaryCurvyness = value
+                }
+            }
+            Image {
+                source: "images/UI-curvyness-2.png"
+                sourceSize.width: 16
+                y: -4
+            }
+        }
+
+        Item {
+            width: 1
+            height: 35
+        }
+
+        //SECONDARY SHAPES
+        Image {
+            source: "images/UI-Secondary-Icon.png"
+            sourceSize.width: 60
+        }
+
+        Label {
+            color: "#c1c1c1"
+            font.pointSize: 9.5
+            font.family: "Montserrat ExtraBold"
+            text: "SECONDARY SHAPES"
+        }
+
+        Image {
+            source: "images/UI-Divider"
+            sourceSize.width: uiWidth
+            width: uiWidth
+        }
+
+        Item {
+            width: 1
+            height: 5
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "radius"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-radius-1.png"
+                sourceSize.width: 12
+                y: 2
+            }
+            Slider {
+                id: secondaryRadius
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.secondaryRadius = value
+                }
+            }
+            Image {
+                source: "images/UI-radius-2.png"
+                sourceSize.width: 25
+                y: -4
+            }
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "complexity"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-complexity-1.png"
+                sourceSize.width: 18
+            }
+            Slider {
+                id: secondarySpikeyness
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.secondarySpikeyness = value
+                }
+            }
+            Image {
+                source: "images/UI-complexity-2.png"
+                sourceSize.width: 22
+                y: -1
+            }
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "curvyness"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-curvyness-1.png"
+                sourceSize.width: 16
+                y: -2
+            }
+            Slider {
+                id: secondaryCurvyness
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.secondaryCurvyness = value
+                }
+            }
+            Image {
+                source: "images/UI-curvyness-2.png"
+                sourceSize.width: 16
+                y: -4
+            }
+        }
+
+        Item {
+            width: 1
+            height: 35
+        }
+
+        //NEGATIVE SHAPES
+        Image {
+            source: "images/UI-Negative-Icon.png"
+            sourceSize.width: 55
+        }
+
+        Label {
+            color: "#c1c1c1"
+            font.pointSize: 9.5
+            font.family: "Montserrat ExtraBold"
+            text: "NEGATIVE SHAPES"
+        }
+
+        Image {
+            source: "images/UI-Divider"
+            sourceSize.width: uiWidth
+            width: uiWidth
+        }
+
+        Item {
+            width: 1
+            height: 5
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "radius"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-radius-1.png"
+                sourceSize.width: 12
+                y: 2
+            }
+            Slider {
+                id: negativeRadius
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.negativeRadius = value
+                }
+            }
+            Image {
+                source: "images/UI-radius-2.png"
+                sourceSize.width: 25
+                y: -4
+            }
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "complexity"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-complexity-1.png"
+                sourceSize.width: 18
+            }
+            Slider {
+                id: negativeSpikeyness
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.negativeSpikeyness = value
+                }
+            }
+            Image {
+                source: "images/UI-complexity-2.png"
+                sourceSize.width: 22
+                y: -1
+            }
+        }
+        Label {
+            font.pointSize: 10
+            color: "#eeeeed"
+            font.family: "Montserrat Medium"
+            text: "curvyness"
+        }
+        Row {
+            spacing: 10
+            Image {
+                source: "images/UI-curvyness-1.png"
+                sourceSize.width: 16
+                y: -2
+            }
+            Slider {
+                id: negativeCurvyness
+                style: SliderStyle {
+                    groove: Image {
+                        source: "images/UI-Slider-Groove.png"
+                        sourceSize.width: uiWidth - 45
+                        width: uiWidth - 45
+                        height: sliderHeight
+                    }
+                    handle: Image {
+                        source: "images/UI-Slider-Handle.png"
+                        sourceSize.width: sliderHandleSize
+                        sourceSize.height: sliderHandleSize
+                    }
+                }
+                value: .5
+                onValueChanged: {
+                    BackEnd.negativeCurvyness = value
+                }
+            }
+            Image {
+                source: "images/UI-curvyness-2.png"
+                sourceSize.width: 16
+                y: -4
+            }
+        }
+
+        Item {
+            width: 1
+            height: 35
+        }
+
+        //Canvas
+        Label {
+            color: "#c1c1c1"
+            font.pointSize: 9.5
+            font.family: "Montserrat ExtraBold"
+            text: "CANVAS"
+        }
+
+        Image {
+            source: "images/UI-Divider"
+            sourceSize.width: uiWidth
+            width: uiWidth
+        }
+
+        Item {
+            width: 1
+            height: 5
+        }
+
+        Button {
+            style: ButtonStyle {
+                background: Image {
+                    source: "images/UI-Canvas-Button2.png"
+                    sourceSize.width: uiWidth
+                    width: uiWidth;
+                }
+                label: Text {
+                    color: "#eeeeed"
+                    font.pointSize: 8
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Montserrat ExtraBold"
+                    text: "GENERATE SHAPE"
+                }
+            }
             onClicked: {
                 BackEnd.generate()
+            }
+        }
+
+        Item {
+            width: 1
+            height: 5
+        }
+
+        Button {
+            style: ButtonStyle {
+                background: Image {
+                    source: "images/UI-Canvas-Button3.png"
+                    sourceSize.width: uiWidth
+                    width: uiWidth;
+                }
+                label: Text {
+                    color: "#eeeeed"
+                    font.pointSize: 8
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Montserrat SemiBold"
+                    text: "export shape..."
+                }
+            }
+            onClicked: {
+                BackEnd.doExport()
             }
         }
     }

@@ -43,6 +43,7 @@ FORMS += \
 MOC_DIR += _generated
 OBJECTS_DIR += _generated
 
+RC_FILE = icon.rc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
