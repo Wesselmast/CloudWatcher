@@ -45,18 +45,18 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
 
 void RenderingWindow::keyPressEvent(QKeyEvent *key) {
     switch (key->key()) {
-        case(Qt::Key::Key_Less): shape->doHorizontalFlip(); break;
-        case(Qt::Key::Key_Greater): shape->doVerticalFlip(); break;
-        case(Qt::Key::Key_Comma): shape->rotateShape(-90); break;
-        case(Qt::Key::Key_Period): shape->rotateShape(90); break;
-        case(Qt::Key::Key_Space): generateShapeButton(); break;
-        case(Qt::Key::Key_R): {
-            QQmlComponent component(qmlView->engine(), qmlView->source());
-            QObject *qmlObj = component.create();
-            QMetaObject::invokeMethod(qmlObj, "randomize");
-            delete qmlObj;
-            break;
-        }
+    case(Qt::Key::Key_Less): shape->doHorizontalFlip(); break;
+    case(Qt::Key::Key_Greater): shape->doVerticalFlip(); break;
+    case(Qt::Key::Key_Comma): shape->rotateShape(-90); break;
+    case(Qt::Key::Key_Period): shape->rotateShape(90); break;
+    case(Qt::Key::Key_Space): generateShapeButton(); break;
+    case(Qt::Key::Key_R): {
+        QQmlComponent component(qmlView->engine(), qmlView->source());
+        QObject *qmlObj = component.create();
+        QMetaObject::invokeMethod(qmlObj, "randomize");
+        delete qmlObj;
+        break;
+    }
     }
     if(key->modifiers() & Qt::ControlModifier) {
         if(key->key() == Qt::Key::Key_S) {
@@ -75,16 +75,17 @@ void RenderingWindow::generateShapeButton() {
 
 void RenderingWindow::exportShape(bool quickexport) {
     QImage image = graphicsView->grab().toImage();
-    image.fill(Qt::transparent);
-    for(int x = 0; x < image.width(); ++x) {
-        for(int y = 0; y < image.height(); ++y) {
-            if(image.pixelColor(x,y) != Qt::white) continue;
-            image.setPixelColor(x, y, Qt::transparent);
-        }
-    }
     QPainter painter(&image);
     QStyleOptionGraphicsItem opt;
     shape->paint(&painter, &opt);
+
+    for(int x = 0; x < image.width(); ++x) {
+        for(int y = 0; y < image.height(); ++y) {
+            QColor color = image.pixelColor(x,y);
+            if(color != Qt::white) continue;
+            image.setPixelColor(x, y, Qt::transparent);
+        }
+    }
 
     if(!exportDir.exists()){
         exportDir.mkpath(".");
@@ -93,13 +94,33 @@ void RenderingWindow::exportShape(bool quickexport) {
     QString path;
     if(!quickexport) {
         path = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                    exportDir.path(),
-                                                    tr("CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
+                                            exportDir.path(),
+                                            tr("CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
         if(path.isNull()) return;
     }
     else {
-        QString num = QString::number(++quickExportNumber);
-        path = exportDir.path() + "/Silhouette_" + num + ".png";
+        QStringList images = exportDir.entryList(QStringList() << "*.jpg" << "*.JPG" << "*.png" << "*.PNG", QDir::Files);
+        QCollator collator;
+        collator.setNumericMode(true);
+
+        std::sort(images.begin(), images.end(),[&collator](const QString &file1, const QString &file2) {
+            return collator.compare(file1, file2) < 0;
+        });
+
+        path = exportDir.path() + "/Silhouette_" + QString::number(images.length() + 1) + ".png";
+
+        for(int i = 0; i < images.length(); ++i) {
+            QRegularExpression rx("d(\\d+)");
+
+            QString n1 = images[i].mid(11);
+            n1 = n1.left(n1.length()-4);
+
+            qDebug() << n1;
+
+            if(n1.toInt() == i+1) continue;
+            path = exportDir.path() + "/Silhouette_" + QString::number(i+1) + ".png";
+            break;
+        }
     }
     image.save(path);
 }

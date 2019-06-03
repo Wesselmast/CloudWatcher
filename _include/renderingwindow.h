@@ -40,8 +40,6 @@ private:
 
     const unsigned short width = 900;
     const unsigned short height = 900;
-
-    int quickExportNumber = 0;
 private slots:
     void generateShapeButton();
 };
