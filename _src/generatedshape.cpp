@@ -2,8 +2,8 @@
 #include <QDebug>
 
 GeneratedShape::GeneratedShape() {
-    pen = new QPen("#292929");
-    brush = new QBrush("#292929");
+    pen = new QPen(color);
+    brush = new QBrush(color);
     generator = QRandomGenerator::global();
     localBoundingRect = QRectF(0, 0, width, height);
     canGenerate = false;
@@ -17,6 +17,7 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     Q_UNUSED(option);
     Q_UNUSED(widget);
     pen->setJoinStyle(Qt::RoundJoin);
+    painter->setRenderHint(QPainter::Antialiasing);
     if(canGenerate) {
         polygons.clear();
 
@@ -30,7 +31,7 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         int margin = 50;
         int localPointOfBalance = qFloor(randomDouble(height - margin, margin));
         int mappedAngularness = qFloor(randomDouble(0, width - (margin * 2)) * 0.5);
-        int localAngularness = (seed % 2 + 1) == 1 ? halfWidth - mappedAngularness : halfWidth + mappedAngularness;
+        int localAngularness = (rand() % 2 + 1) == 1 ? halfWidth - mappedAngularness : halfWidth + mappedAngularness;
 
         QPoint A(halfWidth + localAngularness, halfHeight + margin);
         QPoint B(halfWidth + width - margin,   halfHeight + localPointOfBalance);
@@ -48,15 +49,15 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         }
 
         for (int i = 0; i < amtOfPrimaryPolygons; ++i) {
-            QPoint point = (seed % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
             polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), primaryRadius, primarySpikeyness, primaryComplexity, primaryCurvyness)));
         }
         for (int i = 0; i < amtOfSecondaryPolygons; ++i) {
-            QPoint point = (seed % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
             polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), secondaryRadius, secondarySpikeyness, secondaryComplexity, secondaryCurvyness)));
         }
         for (int i = 0; i < amtOfNegativePolygons; ++i) {
-            QPoint point = (seed % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
+            QPoint point = (rand() % 2 + 1) == 1 ? randomPositionInTriangle(A, B, C) : randomPositionInTriangle(B, C, D);
             polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), negativeRadius, negativeSpikeyness, negativeComplexity, negativeCurvyness)));
         }
 
@@ -114,27 +115,10 @@ QPoint GeneratedShape::randomPositionInTriangle(QPoint A, QPoint B, QPoint C) {
                 );
 }
 
-
 void GeneratedShape::generate() {
     canGenerate = true;
     update();
 }
-
-//void GeneratedShape::pseuGenerate() {
-//    polygons.clear();
-//    for (int i = 0; i < amtOfPrimaryPolygons; ++i) {
-//        polygons.push_back(QPolygon(generatePolygon(points[i].x(), points[i].y(), primaryRadius, primarySpikeyness, primaryComplexity, primaryCurvyness)));
-//    }
-//    for (int i = 0; i < amtOfSecondaryPolygons; ++i) {
-
-//        GA VERDER MET DIT
-
-//        polygons.push_back(QPolygon(generatePolygon(points[amtOfPrimaryPolygons-1 + i].x(), point.y(), secondaryRadius, secondarySpikeyness, secondaryComplexity, secondaryCurvyness)));
-//    }
-//    for (int i = 0; i < amtOfNegativePolygons; ++i) {
-//        polygons.push_back(QPolygon(generatePolygon(point.x(), point.y(), negativeRadius, negativeSpikeyness, negativeComplexity, negativeCurvyness)));
-//    }
-//}
 
 QPolygon GeneratedShape::generatePolygon(int xPos, int yPos, double radius, double spikeyness, int numVerts, int numSplines) {
     spikeyness = clip(spikeyness, 0, 1) * radius;
@@ -228,11 +212,13 @@ void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 }
 
 void GeneratedShape::rotateShape(int amt) {
+    scene()->update();
     setTransformOriginPoint(boundingRect().center());
     setRotation(rotation() + amt);
 }
 
 void GeneratedShape::doHorizontalFlip() {
+    scene()->update();
     double localm31 = width * 2 * scale();
     if(transform().m31() > 0) localm31 = 0;
     setTransform(QTransform(
@@ -249,6 +235,7 @@ void GeneratedShape::doHorizontalFlip() {
 }
 
 void GeneratedShape::doVerticalFlip() {
+    scene()->update();
     double localm32 = height * 2 * scale();
     if(transform().m32() > 0) localm32 = 0;
     setTransform(QTransform(

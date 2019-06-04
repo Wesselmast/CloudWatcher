@@ -1,8 +1,6 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-extern int seed;
-
 extern double primarySpikeyness;
 extern double secondarySpikeyness;
 extern double negativeSpikeyness;

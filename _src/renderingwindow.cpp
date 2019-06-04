@@ -16,8 +16,15 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
     graphicsView->setMaximumSize(static_cast<int>(width), static_cast<int>(height));
     graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
     shape = new GeneratedShape();
     scene->addItem(shape);
+
+
+
+    QRegExp regex("Silhouette_\\d+");
+
+    qDebug() << regex.exactMatch("Silhouette_17");
 
     QQuickWidget* shortcuts = new QQuickWidget();
     shortcuts->setSource(QUrl(QStringLiteral("qrc:/shortcuts.qml")));
@@ -25,7 +32,7 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
 
     QHBoxLayout* layout = new QHBoxLayout(this);
     this->setStyleSheet("background-color: #292929;");
-    graphicsView->setStyleSheet("background-color: white;");
+    graphicsView->setStyleSheet("background-color: white; border: transparent;");
     qmlView->setMinimumSize(225, 1080);
     graphicsView->setAlignment(Qt::AlignCenter);
 
@@ -36,7 +43,6 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
     layout->addWidget(shortcuts);
 
     this->showMaximized();
-    seed = rand();
 
     connect(&BackEnd::instance(), SIGNAL(generate_shape()), this, SLOT(generateShapeButton()));
     connect(&BackEnd::instance(), &BackEnd::export_shape, this, [=]() { exportShape(); });
@@ -45,18 +51,18 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
 
 void RenderingWindow::keyPressEvent(QKeyEvent *key) {
     switch (key->key()) {
-    case(Qt::Key::Key_Less): shape->doHorizontalFlip(); break;
-    case(Qt::Key::Key_Greater): shape->doVerticalFlip(); break;
-    case(Qt::Key::Key_Comma): shape->rotateShape(-90); break;
-    case(Qt::Key::Key_Period): shape->rotateShape(90); break;
-    case(Qt::Key::Key_Space): generateShapeButton(); break;
-    case(Qt::Key::Key_R): {
-        QQmlComponent component(qmlView->engine(), qmlView->source());
-        QObject *qmlObj = component.create();
-        QMetaObject::invokeMethod(qmlObj, "randomize");
-        delete qmlObj;
-        break;
-    }
+        case(Qt::Key::Key_Less): shape->doHorizontalFlip(); break;
+        case(Qt::Key::Key_Greater): shape->doVerticalFlip(); break;
+        case(Qt::Key::Key_Comma): shape->rotateShape(-90); break;
+        case(Qt::Key::Key_Period): shape->rotateShape(90); break;
+        case(Qt::Key::Key_Space): generateShapeButton(); break;
+        case(Qt::Key::Key_R): {
+            QQmlComponent component(qmlView->engine(), qmlView->source());
+            QObject *qmlObj = component.create();
+            QMetaObject::invokeMethod(qmlObj, "randomize");
+            delete qmlObj;
+            break;
+        }
     }
     if(key->modifiers() & Qt::ControlModifier) {
         if(key->key() == Qt::Key::Key_S) {
@@ -66,14 +72,13 @@ void RenderingWindow::keyPressEvent(QKeyEvent *key) {
 }
 
 void RenderingWindow::generateShapeButton() {
-    seed = rand() % SHRT_MAX;
     scene->update();
     shape->transform().reset();
     shape->setRotation(0);
     shape->generate();
 }
 
-void RenderingWindow::exportShape(bool quickexport) {
+void RenderingWindow::exportShape(bool doQuickExport) {
     QImage image = graphicsView->grab().toImage();
     QPainter painter(&image);
     QStyleOptionGraphicsItem opt;
@@ -81,8 +86,7 @@ void RenderingWindow::exportShape(bool quickexport) {
 
     for(int x = 0; x < image.width(); ++x) {
         for(int y = 0; y < image.height(); ++y) {
-            QColor color = image.pixelColor(x,y);
-            if(color != Qt::white) continue;
+            if(image.pixelColor(x,y) != Qt::white) continue;
             image.setPixelColor(x, y, Qt::transparent);
         }
     }
@@ -92,35 +96,40 @@ void RenderingWindow::exportShape(bool quickexport) {
     }
 
     QString path;
-    if(!quickexport) {
+    if(doQuickExport) {
+        QStringList images = exportDir.entryList(QStringList() << "*.jpg" << "*.JPG" << "*.png" << "*.PNG", QDir::Files);
+
+        QString exportName = "Silhouette_";
+        QRegExp regex("Silhouette_\\d+");
+
+        for(auto &img : images) {
+            if(regex.exactMatch(img.left(img.length()-4))) continue;
+            images.removeOne(img);
+        }
+
+        QCollator collator;
+        collator.setNumericMode(true);
+
+        std::sort(images.begin(), images.end(),[&collator](const QString &img1, const QString &img2) {
+            return collator.compare(img1, img2) < 0;
+        });
+
+        path = exportDir.path() + "/" + exportName + QString::number(images.length() + 1) + ".png";
+
+        for(int i = 0; i < images.length(); ++i) {
+            QString n1 = images[i].mid(exportName.length());
+            n1 = n1.left(n1.length()-4);
+
+            if(n1.toInt() == i+1) continue;
+            path = exportDir.path() + "/" + exportName + QString::number(i+1) + ".png";
+            break;
+        }
+    }
+    else {
         path = QFileDialog::getSaveFileName(this, tr("Save File"),
                                             exportDir.path(),
                                             tr("CloudPNG (*.png) ;; CloudJPG (*.jpg)"));
         if(path.isNull()) return;
-    }
-    else {
-        QStringList images = exportDir.entryList(QStringList() << "*.jpg" << "*.JPG" << "*.png" << "*.PNG", QDir::Files);
-        QCollator collator;
-        collator.setNumericMode(true);
-
-        std::sort(images.begin(), images.end(),[&collator](const QString &file1, const QString &file2) {
-            return collator.compare(file1, file2) < 0;
-        });
-
-        path = exportDir.path() + "/Silhouette_" + QString::number(images.length() + 1) + ".png";
-
-        for(int i = 0; i < images.length(); ++i) {
-            QRegularExpression rx("d(\\d+)");
-
-            QString n1 = images[i].mid(11);
-            n1 = n1.left(n1.length()-4);
-
-            qDebug() << n1;
-
-            if(n1.toInt() == i+1) continue;
-            path = exportDir.path() + "/Silhouette_" + QString::number(i+1) + ".png";
-            break;
-        }
     }
     image.save(path);
 }

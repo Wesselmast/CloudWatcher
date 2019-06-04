@@ -1,6 +1,7 @@
 #ifndef GENERATEDSHAPE_H
 #define GENERATEDSHAPE_H
 
+#include <QGraphicsScene>
 #include <QPainter>
 #include <QGraphicsItem>
 #include <QtMath>
@@ -19,12 +20,12 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     void generate();
-    //void pseuGenerate();
     ~GeneratedShape();
 public:
     QPen* pen;
     QBrush* brush;
 
+    const QColor color = QColor("#292929");
     const unsigned short width = 450;
     const unsigned short height = 450;
 public slots:

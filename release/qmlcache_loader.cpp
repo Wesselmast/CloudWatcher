@@ -4,15 +4,12 @@
 
 static const unsigned char qt_resource_tree[] = {
 0,
-0,0,0,0,2,0,0,0,3,0,0,0,1,0,0,0,
-8,0,0,0,0,0,1,0,0,0,0,0,0,0,72,0,
-0,0,0,0,1,0,0,0,0,0,0,0,40,0,0,0,
-0,0,1,0,0,0,0};
+0,0,0,0,2,0,0,0,2,0,0,0,1,0,0,0,
+40,0,0,0,0,0,1,0,0,0,0,0,0,0,8,0,
+0,0,0,0,1,0,0,0,0};
 static const unsigned char qt_resource_names[] = {
 0,
-1,0,0,0,47,0,47,0,13,6,2,136,220,0,85,0,
-73,0,70,0,111,0,114,0,109,0,46,0,117,0,105,0,
-46,0,113,0,109,0,108,0,13,15,91,100,156,0,115,0,
+1,0,0,0,47,0,47,0,13,15,91,100,156,0,115,0,
 104,0,111,0,114,0,116,0,99,0,117,0,116,0,115,0,
 46,0,113,0,109,0,108,0,8,8,1,90,92,0,109,0,
 97,0,105,0,110,0,46,0,113,0,109,0,108};
@@ -33,12 +30,6 @@ namespace _0x5f__shortcuts_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), nullptr, nullptr
     };
 }
-namespace _0x5f__UIForm_ui_0x2e_qml { 
-    extern const unsigned char qmlData[];
-    const QQmlPrivate::CachedQmlUnit unit = {
-        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), nullptr, nullptr
-    };
-}
 
 }
 namespace {
@@ -54,7 +45,6 @@ Q_GLOBAL_STATIC(Registry, unitRegistry)
 Registry::Registry() {
         resourcePathToCachedUnit.insert(QStringLiteral("/main.qml"), &QmlCacheGeneratedCode::_0x5f__main_qml::unit);
         resourcePathToCachedUnit.insert(QStringLiteral("/shortcuts.qml"), &QmlCacheGeneratedCode::_0x5f__shortcuts_qml::unit);
-        resourcePathToCachedUnit.insert(QStringLiteral("/UIForm.ui.qml"), &QmlCacheGeneratedCode::_0x5f__UIForm_ui_0x2e_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.version = 0;
     registration.lookupCachedQmlUnit = &lookupCachedUnit;

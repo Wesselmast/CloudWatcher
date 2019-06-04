@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>UIForm.ui.qml</file>
         <file>images/UI-Canvas-Button2.png</file>
         <file>images/UI-Canvas-Button3.png</file>
         <file>images/UI-Canvas-Vlak.png</file>
