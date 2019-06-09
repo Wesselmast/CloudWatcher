@@ -21,5 +21,6 @@
         <file alias="images/UI-Slider-Groove.png">_form/images/UI-Slider-Groove.png</file>
         <file alias="images/UI-Slider-Handle.png">_form/images/UI-Slider-Handle.png</file>
         <file alias="images/UI-Divider.png">_form/images/UI-Divider.png</file>
+        <file alias="images/UI-Shortcuts.png">_form/images/UI-Shortcuts.png</file>
     </qresource>
 </RCC>

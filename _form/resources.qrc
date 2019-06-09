@@ -21,6 +21,8 @@
         <file>images/UI-Slider-Groove.png</file>
         <file>images/UI-Slider-Handle.png</file>
         <file>images/UI-Divider.png</file>
+        <file>images/UI-Shortcuts.png</file>
         <file>shortcuts.qml</file>
+        <file>globals.js</file>
     </qresource>
 </RCC>

@@ -20,12 +20,6 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
     shape = new GeneratedShape();
     scene->addItem(shape);
 
-
-
-    QRegExp regex("Silhouette_\\d+");
-
-    qDebug() << regex.exactMatch("Silhouette_17");
-
     QQuickWidget* shortcuts = new QQuickWidget();
     shortcuts->setSource(QUrl(QStringLiteral("qrc:/shortcuts.qml")));
     shortcuts->setMinimumSize(225, 1080);
@@ -59,7 +53,7 @@ void RenderingWindow::keyPressEvent(QKeyEvent *key) {
         case(Qt::Key::Key_R): {
             QQmlComponent component(qmlView->engine(), qmlView->source());
             QObject *qmlObj = component.create();
-            QMetaObject::invokeMethod(qmlObj, "randomize");
+            QMetaObject::invokeMethod(qmlObj, "randomizeProgramically");
             delete qmlObj;
             break;
         }

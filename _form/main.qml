@@ -1,4 +1,5 @@
 import cloudwatching.backend 1.0
+import "globals.js" as Global
 
 import QtQuick 2.0
 import QtQuick.Controls.Styles 1.4
@@ -16,6 +17,10 @@ Rectangle {
     height: 8000
     color: "#292929"
 
+    function randomizeProgramically() {
+        Global.randomized = true
+    }
+
     function randomize() {
         primaryRadius.value = Math.random()
         primarySpikeyness.value = Math.random()
@@ -28,6 +33,19 @@ Rectangle {
         negativeRadius.value = Math.random()
         negativeSpikeyness.value = Math.random()
         negativeCurvyness.value = Math.random()
+    }
+
+    Timer {
+        id: timer
+        running: true
+        repeat: true
+        interval: 100
+        onTriggered: {
+            if(Global.randomized) {
+                randomize()
+                Global.randomized = false
+            }
+        }
     }
 
     Image {
@@ -103,6 +121,7 @@ Rectangle {
         }
 
         Button {
+            id: randomButton
             style: ButtonStyle {
                 background: Image {
                     source: "images/UI-Sliders-Button1.png"
