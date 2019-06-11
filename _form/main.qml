@@ -39,7 +39,7 @@ Rectangle {
         id: timer
         running: true
         repeat: true
-        interval: 100
+        interval: 1
         onTriggered: {
             if(Global.randomized) {
                 randomize()

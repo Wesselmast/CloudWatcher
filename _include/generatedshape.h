@@ -25,6 +25,7 @@ public:
     QPen* pen;
     QBrush* brush;
 
+    QList<double> randoms;
     const QColor color = Qt::black;
     const unsigned short width = 450;
     const unsigned short height = 450;

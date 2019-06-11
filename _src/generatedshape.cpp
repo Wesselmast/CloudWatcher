@@ -81,6 +81,7 @@ void GeneratedShape::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
             painter->setPen(QPen(Qt::white));
             localBrush = QBrush(Qt::white);
         }
+
         painter->fillPath(path, localBrush);
         painter->drawPolygon(polygons[i]);
         if(polygons[i].boundingRect().x() < minimumX) {
@@ -212,11 +213,13 @@ void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 }
 
 void GeneratedShape::rotateShape(int amt) {
+    scene()->update();
     setTransformOriginPoint(boundingRect().center());
     setRotation(rotation() + amt);
 }
 
 void GeneratedShape::doHorizontalFlip() {
+    scene()->update();
     double localm31 = width * 2 * scale();
     if(transform().m31() > 0) localm31 = 0;
     setTransform(QTransform(
@@ -233,6 +236,7 @@ void GeneratedShape::doHorizontalFlip() {
 }
 
 void GeneratedShape::doVerticalFlip() {
+    scene()->update();
     double localm32 = height * 2 * scale();
     if(transform().m32() > 0) localm32 = 0;
     setTransform(QTransform(

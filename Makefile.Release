@@ -1565,7 +1565,31 @@ _generated/renderingwindow.o: _src/renderingwindow.cpp _include/renderingwindow.
 		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qlabel.h \
 		_include/backend.h \
 		C:/Qt/5.12.3/mingw73_64/include/QtCore/QDebug \
-		ui_renderingwindow.h
+		ui_renderingwindow.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtCore/QVariant \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QApplication \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qapplication.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QComboBox \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qcombobox.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QFormLayout \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qformlayout.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QLayout \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QGridLayout \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QGroupBox \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qgroupbox.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QMainWindow \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qmainwindow.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QPushButton \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QSpacerItem \
+		C:/Qt/5.12.3/mingw73_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o _generated\renderingwindow.o _src\renderingwindow.cpp
 
 _generated/generatedshape.o: _src/generatedshape.cpp _include/generatedshape.h \
