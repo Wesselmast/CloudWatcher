@@ -76,12 +76,12 @@ void RenderingWindow::exportShape(bool doQuickExport) {
     QImage image = graphicsView->grab().toImage();
     QPainter painter(&image);
     QStyleOptionGraphicsItem opt;
-    shape->paint(&painter, &opt);
 
     for(int x = 0; x < image.width(); ++x) {
         for(int y = 0; y < image.height(); ++y) {
-            if(image.pixelColor(x,y) != Qt::white) continue;
-            image.setPixelColor(x, y, Qt::transparent);
+            QColor color = image.pixelColor(x,y);
+            int grayscale = qGray(color.red(), color.green(), color.blue());
+            image.setPixelColor(x, y, QColor(color.red(), color.green(), color.blue(), 255-grayscale));
         }
     }
 

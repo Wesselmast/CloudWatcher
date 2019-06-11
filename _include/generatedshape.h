@@ -25,7 +25,7 @@ public:
     QPen* pen;
     QBrush* brush;
 
-    const QColor color = QColor("#292929");
+    const QColor color = Qt::black;
     const unsigned short width = 450;
     const unsigned short height = 450;
 public slots:

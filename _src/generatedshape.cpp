@@ -212,13 +212,11 @@ void GeneratedShape::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 }
 
 void GeneratedShape::rotateShape(int amt) {
-    scene()->update();
     setTransformOriginPoint(boundingRect().center());
     setRotation(rotation() + amt);
 }
 
 void GeneratedShape::doHorizontalFlip() {
-    scene()->update();
     double localm31 = width * 2 * scale();
     if(transform().m31() > 0) localm31 = 0;
     setTransform(QTransform(
@@ -235,7 +233,6 @@ void GeneratedShape::doHorizontalFlip() {
 }
 
 void GeneratedShape::doVerticalFlip() {
-    scene()->update();
     double localm32 = height * 2 * scale();
     if(transform().m32() > 0) localm32 = 0;
     setTransform(QTransform(
