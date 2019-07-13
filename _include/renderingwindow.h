@@ -18,6 +18,7 @@
 #include <QQmlComponent>
 #include <QDesktopServices>
 #include <QLabel>
+#include <QGraphicsOpacityEffect>
 #include "backend.h"
 #include "_include/globals.h"
 
@@ -35,13 +36,19 @@ private:
     QGraphicsScene *scene;
     GeneratedShape *shape;
     QGraphicsView *graphicsView;
+    QWidget *exportText;
+    QPropertyAnimation *fadeIn;
+    QPropertyAnimation *fadeOut;
 
     QDir exportDir;
 
     const unsigned short width = 900;
     const unsigned short height = 900;
+
+    bool timerRunning = false;
 private slots:
     void generateShapeButton();
+    void hideExportText();
 };
 
 #endif // RENDERINGWINDOW_H

@@ -645,7 +645,7 @@ Rectangle {
                     verticalAlignment: Text.AlignVCenter
                     x: 18
                     font.family: "Montserrat SemiBold"
-                    text: "export shape..."
+                    text: "export shape as..."
                 }
             }
             onClicked: {

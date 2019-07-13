@@ -36,6 +36,18 @@ RenderingWindow::RenderingWindow(QWidget *parent) : QWidget(parent) {
     layout->addStretch();
     layout->addWidget(shortcuts);
 
+    exportText = new QLabel("Saved to /Desktop/CloudWatcher", this);
+    exportText->setFont(QFont("Montserrat"));
+    exportText->setStyleSheet("background-color: transparent; color: #868686; font-size: 22px");
+    exportText->setGeometry(width - 110, height, 350, 35);
+    exportText->raise();
+    exportText->hide();
+
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
+    exportText->setGraphicsEffect(effect);
+    fadeOut = new QPropertyAnimation(effect, "opacity");
+    fadeIn = new QPropertyAnimation(effect, "opacity");
+
     this->showMaximized();
 
     connect(&BackEnd::instance(), SIGNAL(generate_shape()), this, SLOT(generateShapeButton()));
@@ -72,6 +84,11 @@ void RenderingWindow::generateShapeButton() {
     shape->generate();
 }
 
+void RenderingWindow::hideExportText() {
+    exportText->hide();
+    timerRunning = false;
+}
+
 void RenderingWindow::exportShape(bool doQuickExport) {
     QImage image = graphicsView->grab().toImage();
     QPainter painter(&image);
@@ -91,6 +108,24 @@ void RenderingWindow::exportShape(bool doQuickExport) {
 
     QString path;
     if(doQuickExport) {
+        if(!timerRunning) {
+            timerRunning = true;
+            exportText->show();
+            QTimer::singleShot(3000, this, [=]() {
+                fadeOut->setDuration(1000);
+                fadeOut->setStartValue(1);
+                fadeOut->setEndValue(0);
+                fadeOut->setEasingCurve(QEasingCurve::OutBack);
+                fadeOut->start();
+                connect(fadeOut, SIGNAL(finished()), this, SLOT(hideExportText()));
+            });
+            fadeIn->setDuration(100);
+            fadeIn->setStartValue(0);
+            fadeIn->setEndValue(1);
+            fadeIn->setEasingCurve(QEasingCurve::InBack);
+            fadeIn->start();
+        }
+
         QStringList images = exportDir.entryList(QStringList() << "*.jpg" << "*.JPG" << "*.png" << "*.PNG", QDir::Files);
 
         QString exportName = "Silhouette_";
