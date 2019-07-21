@@ -7,6 +7,10 @@ developed by a team of three students from the Netherlands called 'Toolbird'.
 
 It is currently only available on Windows, we're looking into porting to MacOS and Linux too. 
 
+# Download
+
+Navigate to the releases tab in this repository and click on the CloudWatcherInstaller.exe file of the latest release.
+
 # Getting Started
 
 Using the tool is quite trivial, you will see a few sliders, 
